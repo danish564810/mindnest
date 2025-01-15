@@ -1,0 +1,493 @@
+@import url(../Components/_var.scss);
+@import url(../Components/buttons/_buttons.scss);
+.page-content {
+  background-image: linear-gradient(180deg, #c1a6f2 0%, #cab3f5 13%, #d0bbf7 21%, #d8c8f9 28%, #ded0fb 34%, #e4d8fd 40%, #ebdffb 46%, #e9d8ee 51%, #e8d3e0 57%, #e8ced2 62%, #e8cac4 67%, #e7c3b1 72%, #eac6ae 77%, #edccb1 82%, #f1d3b7 87%, #f4d7b8 91%, #f8debf 96%, #fbe4c1 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  flex: calc(100% - var(--header-main-height));
+  padding: var(--header-main-height) 0 0 0;
+  height: 100vh;
+  min-height: 100%;
+  overflow: auto;
+}
+.page-content .login-form-inner {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  padding: calc(var(--header-main-height) / 2) 0;
+  justify-content: center;
+}
+.page-content .login-form-inner .login-page {
+  width: 100%;
+  display: flex;
+}
+.page-content .login-form-inner .login-page .login-page-inner {
+  padding: 50px calc((var(--header-main-height) + 16px) / 2);
+  border-radius: 25px;
+  width: 100%;
+  max-width: 554px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.page-content .login-form-inner .login-page .login-page-inner .login-headings {
+  margin-bottom: 11.5px;
+  line-height: 52px;
+  font-weight: 600;
+  font-size: 44px;
+}
+.page-content .login-form-inner .login-page .login-page-inner .account-txt {
+  background: linear-gradient(to right, #ffdbdb 0%, #ffc9c9 0.01%, #ffc0f1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.page-content .login-form-inner .login-page .login-page-inner .create-accoutn-new {
+  display: flex;
+  line-height: 1;
+}
+.page-content .login-form-inner .login-page .login-page-inner .create-accoutn-new .txt-account h5 {
+  font-family: "MazzardH-Ragular" !important;
+  font-size: 18px;
+}
+.page-content .login-form-inner .login-page .login-page-inner .login-fields {
+  margin-top: 35px;
+}
+.page-content .login-form-inner .login-page .login-page-inner .login-fields .fl-name .f-na {
+  margin-right: 2px;
+}
+.page-content .login-form-inner .login-page .login-page-inner .create-accoutn-new .new-aacount-btn {
+  font-size: 18px;
+  font-family: "MazzardH-medium";
+  font-weight: 400;
+  margin-left: 5px;
+  color: #5292dc;
+  position: relative;
+  background: none;
+  border: none;
+}
+.page-content .login-form-inner .login-page .login-page-inner .vector-arrow {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.form-group {
+  margin-top: 14px;
+}
+.form-group input {
+  height: 60px;
+  font-size: 20px;
+  border-radius: 15px;
+  border: none;
+  padding: 19px 24px 17px;
+  background: #f7f7f7;
+  width: 100%;
+  outline: none;
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+}
+.form-group input::-moz-placeholder {
+  color: #9A9A9A;
+  font-family: "Mazzard_Italic";
+  font-weight: 600;
+}
+.form-group input::placeholder {
+  color: #9A9A9A;
+  font-family: "Mazzard_Italic";
+  font-weight: 600;
+}
+
+.login-pass {
+  position: relative;
+}
+
+.password {
+  width: 40px;
+  height: 100%;
+  position: absolute;
+  top: -1px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password--visibleToggle {
+  height: 40px !important;
+  width: 40px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0px !important;
+  position: absolute;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  z-index: 9;
+}
+
+.password--visibleToggle-eye {
+  width: 19px;
+  height: 25px;
+  position: absolute;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.password--visibleToggle-eye.close {
+  transition: 0.4s all ease-in-out;
+}
+
+.password--visibleToggle-eye.open {
+  transition: 0.2s 0.2s all ease-out;
+}
+
+.password--visibleToggle-eye img {
+  width: 100%;
+}
+
+.password--lock {
+  width: 20px;
+  height: 20px;
+  fill: #111;
+  transition: all 0.5s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 25px;
+}
+
+.password--input {
+  background: none;
+  border: none;
+  color: #575DBF;
+  position: absolute;
+  width: 200px;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  letter-spacing: 2px;
+  transition: all 0.5s;
+  outline: none;
+  font-family: "Open Sans Condensed", sans-serif;
+  -webkit-text-security: none;
+}
+
+.password--input:focus {
+  border-bottom: 1px solid;
+}
+
+.password--visibleToggle:checked ~ .password--background {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  right: 12.5px;
+  top: 12.5px;
+}
+
+.password--visibleToggle:checked ~ .password--input {
+  -webkit-text-security: circle;
+}
+
+.password--visibleToggle:checked ~ .password--lock {
+  fill: #fff;
+}
+
+.password--visibleToggle:checked ~ .password--visibleToggle-eye.open {
+  opacity: 0;
+}
+
+.password--visibleToggle:checked ~ .password--visibleToggle-eye.close {
+  transform: rotateX(180deg);
+}
+
+.submit-btn {
+  position: relative;
+  margin-top: 20px;
+}
+@media screen and (min-width: 576px) {
+  .submit-btn {
+    margin-top: 30px !important;
+  }
+}
+
+.f-pass-btn {
+  margin-top: 20px;
+}
+@media screen and (min-width: 991px) {
+  .f-pass-btn {
+    margin-top: 24.5px;
+  }
+}
+.f-pass-btn .btn-link {
+  color: #5292dc;
+  font-size: 16px;
+  font-family: "MazzardH-Ragular";
+  font-weight: 400;
+  text-decoration: none;
+  padding: 0;
+}
+
+.c-horizontal_content_rule {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.c-horizontal_content_rule hr {
+  border: none;
+  border-top: 1.702px solid rgba(0, 0, 0, 0.09);
+  clear: both;
+  flex-grow: 1;
+  margin: 0;
+  opacity: 1;
+}
+
+.c-horizontal_content_rule .c-horizontal_content_rule__content {
+  padding: 0 3px;
+  color: #9a9a9a;
+  font-weight: 500;
+  font-size: 10px;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 992px) {
+  .c-horizontal_content_rule .c-horizontal_content_rule__content {
+    font-size: 17.018px;
+  }
+}
+
+.google-signin img {
+  margin-left: 14.17px;
+  width: auto;
+  height: auto;
+}
+.google-signin h5 {
+  font-size: 20px;
+  font-family: "MazzardH-medium";
+}
+
+.fl-name .f-na .f-name {
+  border-radius: 15px 0 0 15px !important;
+}
+.fl-name .l-na .l-name {
+  border-radius: 0 15px 15px 0 !important;
+}
+
+.passField {
+  position: relative;
+}
+
+.check-ic {
+  margin-top: 24.5px;
+}
+.check-ic p {
+  margin-left: 15px;
+  margin-bottom: 0;
+  font-size: 12px;
+  color: #656565;
+  font-family: "MazzardH-Ragular";
+}
+
+.form-check-input:checked {
+  background-color: #ced9d7 !important;
+  border: #5e63bc !important;
+  border-radius: 4px !important;
+}
+
+@media screen and (min-width: 992px) {
+  .check-box-main input {
+    margin-top: 0;
+  }
+}
+
+.form-check-input {
+  background-image: url(../../../assests/images/checkbox-icon.png) !important;
+}
+@media screen and (min-width: 576px) {
+  .form-check-input {
+    width: 19px !important;
+    height: 19px !important;
+    background-position-x: 3px !important;
+    overflow: visible;
+    background-position-y: 2px !important;
+    background-size: 17px !important;
+  }
+}
+
+.eye-icons {
+  position: absolute;
+  right: 13px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eye-icons img {
+  width: 20px;
+  height: auto;
+}
+
+.log-main {
+  width: 100%;
+}
+.log-main .log-inner {
+  width: 100%;
+  max-width: 554px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 39px calc(var(--header-main-height) / 4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  position: relative;
+}
+@media screen and (min-width: 575px) {
+  .log-main .log-inner {
+    padding: 50px calc((var(--header-main-height) + 16px) / 2);
+    border-radius: 25px;
+    background-color: #fff;
+  }
+}
+.log-main .log-inner .log-header {
+  text-align: center;
+}
+
+.dob-gender {
+  margin-top: 14px;
+}
+
+@media screen and (min-width: 992px) {
+  .code-send-number {
+    margin-bottom: 24px;
+  }
+}
+.code-send-number p {
+  font-size: 13px;
+  font-family: "MazzardH-Ragular";
+  font-weight: 500;
+  color: var(--primary);
+}
+@media screen and (min-width: 576px) {
+  .code-send-number p {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .code-send-number p {
+    width: 371px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .varification-heading {
+    margin-bottom: 30.5px !important;
+  }
+}
+
+.cd-dg {
+  font-size: 10px;
+  font-family: "Mazzard_Light";
+  color: var(--primary);
+}
+@media screen and (min-width: 576px) {
+  .cd-dg {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+}
+
+.otp {
+  width: 15.5%;
+  height: auto;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  border: 0;
+  text-align: center;
+  margin: 8px 0 4px;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 576px) {
+  .otp {
+    width: 73px;
+    height: 64px;
+    font-size: 18px;
+  }
+}
+.otp:focus {
+  outline: none;
+}
+
+.forgot-text p {
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 992px) {
+  .forgot-text p {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+}
+
+.resetPass {
+  margin-top: 20px;
+}
+@media screen and (min-width: 576px) {
+  .resetPass {
+    margin-top: 30px;
+  }
+}
+.resetPass a {
+  text-decoration: none;
+  color: #222;
+  font-size: 10px;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 576px) {
+  .resetPass a {
+    font-size: 16px;
+  }
+}
+
+.confirmation-text {
+  margin-bottom: 30px;
+  font-size: 13px;
+  font-family: "MazzardH-medium";
+}
+.confirmation-text p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.get-code {
+  font-family: "Mazzard_Light";
+  text-decoration: none;
+}
+@media screen and (min-width: 576px) {
+  .get-code {
+    font-size: 18px;
+  }
+}
+.get-code:disabled {
+  border: none;
+}
+
+.resend-verification {
+  text-decoration: none;
+  font-size: 10px;
+  font-family: "MazzardH-semibold";
+  color: #414141;
+}
+@media screen and (min-width: 576px) {
+  .resend-verification {
+    font-size: 16px;
+  }
+}
+.resend-verification:hover {
+  color: #414141;
+}/*# sourceMappingURL=Account.css.map */

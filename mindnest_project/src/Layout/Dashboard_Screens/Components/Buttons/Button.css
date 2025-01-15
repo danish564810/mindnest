@@ -1,0 +1,31 @@
+.btn-primary {
+  background-color: #e68244 !important;
+  border: 0 !important;
+}
+
+.btn-tertiary {
+  background-color: #5e63bc;
+  border: 0;
+  color: #fff;
+}
+
+.ModalButton {
+  width: 275px;
+  height: 50px;
+  border-radius: 10px;
+  border: 0;
+  color: #fff;
+  font-family: "MazzardH-semibold";
+  position: relative;
+  transition: 0.5s ease;
+  z-index: 9;
+  overflow: hidden;
+  font-size: 16px;
+}
+@media screen and (min-width: 767px) {
+  .ModalButton {
+    border-radius: 10px;
+    font-size: 20px;
+    height: 50px;
+  }
+}/*# sourceMappingURL=Button.css.map */

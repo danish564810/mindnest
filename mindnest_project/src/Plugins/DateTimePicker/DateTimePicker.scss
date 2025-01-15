@@ -1,0 +1,71 @@
+@import url(../../fonts/_font-face.scss);
+
+@mixin DtpSharedInput {
+    border: 0;
+    padding: 19px 24px 17px;
+    &:focus{
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+label{
+    position: absolute;
+  left: .75rem;
+  top: .75rem;
+  background: var(--bg);
+  padding-inline: .3em;
+  transition: transform 200ms;
+  pointer-events: none;
+  transform-origin: left;
+  translate: -.3em;
+}
+.date-pick::placeholder{
+    opacity: 0;
+}
+.date-pick:focus > label, 
+.date-pick:not(:placeholder-shown) > label{
+    transform: translateY(calc(-50% - (75rem))) scale(.8);
+    color: red;
+}
+.date-pick:focus{
+    border:1px solid red;
+}
+.react-datepicker-wrapper{
+    width: 100%;
+}
+.react-datepicker-popper{
+    z-index: 10 !important;
+}
+.datepicker-account .react-datepicker__input-container input {
+   @include DtpSharedInput();
+    height: 60px;
+    font-size: 20px;
+    border-radius: 15px 0 0 15px;
+    background: #f7f7f7;
+    font-family: "MazzardH-medium";
+    cursor: pointer;
+    &::placeholder{
+        color: #9A9A9A;
+        font-family: "Mazzard_Italic";
+        font-weight: 600;
+    }
+    
+  }
+  
+  /* Dashboard layout styles */
+  .datepicker-dashboard .react-datepicker__input-container input {
+    @include DtpSharedInput();
+    height: 45px;
+    font-size: 20px;
+    border-radius: 15px;
+    background: #fff;
+    font-family: "MazzardH-medium";
+    cursor: pointer;
+    &::placeholder{
+        color: #9A9A9A;
+        font-family: "Mazzard_Italic";
+        font-weight: 600;
+    }
+   
+  }

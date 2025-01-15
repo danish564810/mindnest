@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+@font-face {
+  font-family: 'MazzardH-medium';
+  src: local('MazzardH-medium'), url(./fonts/MazzardH-Medium_0.ttf) format('opentype');
+}
+
+
+@font-face {
+  font-family: "Mazzard_Italic";
+  src: local('Mazzard_Italic'), url(./fonts/MazzardH-Italic_0.ttf);
+}
+@font-face {
+  font-family: "Mazzard_Light";
+  src: local('Mazzard_Light'),  url(./fonts/MazzardH-Light_0.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: "MazzardH-Bold";
+  src: local('MazzardH-Bold'), url(./fonts/MazzardH-Bold_0.ttf);
+}
+
+@font-face {
+  font-family: "MazzardH-Ragular";
+  src: local('azzardH-Ragular'), url(./fonts/MazzardH-Regular_0.ttf);
+}
+
+@font-face {
+  font-family: "MazzardH-semibold";
+  src: local('MazzardH-semibold'), url(./fonts/MazzardH-SemiBold_0.ttf);
+}
+@font-face {
+  font-family: "MazzardL-Semibold";
+  src: local('MazzardL-Semibold'), url(./fonts/MazzardL-SemiBold.ttf);
+}
+@font-face {
+  font-family: "MazzardL-Light";
+  src: local('MazzardL-Light'), url(./fonts/MazzardL-Light.ttf);
+ }
+
+@font-face {
+  font-family: "MazzardH-medium";
+  src: local('MazzardH-medium'), url(./fonts/MazzardH-Medium_0.ttf);
+}
+@font-face {
+    font-family: "MazzardH-light";
+    src: local('MazzardH-light'), url(./fonts/MazzardH-Light_0.ttf);
+}
+@font-face {
+    font-family: "MazzardL-Medium";
+    src: local('MazzardL-Medium'), url(./fonts/MazzardL-Medium.ttf);
+}
+@font-face {
+  font-family: "MazzardH-medium";
+  src: local('MazzardH-medium'), url(./fonts/MazzardM-Medium.ttf);
+}/*# sourceMappingURL=font-face.css.map */
+.container{
+  padding: 0 30px;
+  max-width: 1240px;
+}
+
+ul{
+  list-style: none;
+}

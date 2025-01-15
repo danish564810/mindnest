@@ -1,0 +1,171 @@
+.row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+img {
+    max-width: 100%;
+}
+
+.header-main {
+    height: calc(var(--header-height) + 10px);
+    display: flex;
+    align-items: center;
+    z-index: 999;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    transition: all .15s linear;
+
+    @media screen and (min-width: 991px) {
+        background: #fff;
+    }
+
+    .logo {
+        .logo-image {
+            margin-right: 5px;
+            width: 42.7px;
+            height: 32.7px;
+        }
+
+        .logo-tx {
+            font-family: "MazzardH-Bold";
+            font-size: 22px;
+            color: var(--primary);
+        }
+    }
+
+    .ph-main {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .user-name {
+        margin-right: 5px;
+        margin-left: 9px;
+        font-size: 13px;
+        color: var(--primary);
+    }
+}
+
+.container {
+    max-width: 100%;
+    margin: auto;
+    padding: 0 30px !important;
+}
+
+.notifacation-icons {
+    width: 40px;
+    height: 40px;
+    background-color: #eee;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 9px;
+    cursor: pointer;
+
+    @media screen and (min-width: 992px) {
+        margin-right: 12px;
+    }
+}
+
+.dropdown {
+    position: static;
+}
+
+.user-image-container {
+    position: relative;
+    background-color: #f1d8c9;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38.9px;
+    width: 38.9px;
+
+    img {
+        border-radius: 50px;
+        aspect-ratio: 1;
+    }
+}
+
+.online-mark {
+    width: 13px;
+    height: 13px;
+    background-color: #0ac307;
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    border: 1px solid #fff;
+}
+
+.dropdown-toggle {
+    &:after {
+        content: "";
+        background-image: url("../../../../assests/images/dropdown-arrow.png") !important;
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+    }
+}
+
+.icon-notification-icon {
+    background-image: url("../../../../assests/svgs/Notificationicon.svg");
+    background-size: 11px;
+    width: 12px;
+    height: 14px;
+    background-repeat: no-repeat;
+}
+
+.dropdown {
+    position: relative;
+    cursor: pointer;
+
+    .dropdown-list {
+        position: absolute;
+        position: absolute;
+        left: -28px;
+        top: 48px;
+        min-width: 9rem;
+
+        ul {
+            padding: 0;
+            border: 1.458px solid rgba(0, 0, 0, .1);
+            min-width: 8rem;
+            background: #fcfaf7;
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+            border-radius: 12px 0 12px 12px;
+
+            li {
+                font-size: 14px;
+                padding: 7px 12px;
+                border-bottom: 1px solid #cdcdcd;
+                font-family: "MazzardH-Ragular";
+                color: #000;
+                &:hover{
+                    background: #5e63bc;
+                    color: #ffffff;
+                }
+                &:first-child{
+                    &:hover{
+                        border-top-left-radius: 12px;
+                    }
+                }
+                &:last-child{
+                    &:hover{
+                        border-bottom-right-radius: 12px;
+                        border-bottom-left-radius: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

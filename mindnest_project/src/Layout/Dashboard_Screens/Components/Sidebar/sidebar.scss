@@ -1,0 +1,65 @@
+/* sidebar design */
+.sidebar {
+    height: calc(100% - 133px);
+    overflow-x: hidden;
+    position: fixed;
+    width: 100%;
+    top: 145px;
+    max-width: calc(var(--sidebar-width) - 35px) !important;
+    background-color: #fff;
+    display: inline-block;
+
+    .navbar {
+        margin-bottom: 40px;
+
+        li {
+            font-size: 15px;
+            width: 198px;
+            height: 62px;
+            border-radius: 10px;
+            margin: 10px 20px 10px 20px;
+            text-align: center;
+            padding: 0;
+            cursor: pointer;
+
+            &.active {
+                background: var(--primary);
+                color: #fff !important;
+                text-decoration: none;
+                display: flex !important;
+
+                a {
+                    color: #fff !important;
+                }
+
+                svg {
+                    .sv {
+                        fill: red;
+                    }
+                }
+            }
+
+            a {
+                font-family: "MazzardH-medium";
+                border: 0;
+                background: none;
+                padding: 0 15px 0 29px;
+                text-decoration: none;
+                color: var(--primary);
+            }
+
+            img {
+                margin-right: 17px;
+            }
+
+            &:hover {
+                background: #2d2c2d;
+                color: #fff;
+                text-decoration: none;
+                a{
+                    color: white;
+                }
+            }
+        }
+    }
+}
