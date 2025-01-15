@@ -5,8 +5,7 @@ const AuthButton = () => {
   const { authToken, onLogout, flowType, updateFlowType } = useAuth();
   const navigate = useNavigate(); 
   const location = useLocation(); 
-  const reason = location.state?.reason;
-
+  
   // Check if the current page is login or signup
   const isHomePage = location.pathname === "/Login"; 
   const isSignupPage = location.pathname === "/Signup"; 
@@ -22,7 +21,7 @@ const AuthButton = () => {
 
   // Handle logout
   const handleLogout = () => {
-    onLogout(); // Call logout function from context
+    onLogout(); 
     navigate("/Login"); // Navigate to the homepage (or login page) after logout
   };
   const handleSignUp = () => {
