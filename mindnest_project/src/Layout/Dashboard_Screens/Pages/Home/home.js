@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../useAuth/useAuth";
 import { getWellnessGuide } from "../../../../Api";
 import { getAllPatientTask } from "../../../../Api";
+import { getCareManagerDetails } from "../../../../Api";
 import Modals from "../../Components/Modal/Modal";
 import Dropdown from 'react-bootstrap/Dropdown';
 import hiImage from "../../../../assests/images/hi_image.png";
@@ -9,12 +10,14 @@ import Task from "../../Components/Tasks/Task";
 import careManageImage from "../../../../assests/images/care-manager-image.png"
 
 const Home = () => {
-//First name
+    //First name
 
-const {authToken,user} = useAuth();
-//wallness Guide
-   const [wellnessData, setWellnessData] = useState(null);
-  //add toggle
+    const { authToken, user } = useAuth();
+    //wallness Guide
+    const [wellnessData, setWellnessData] = useState(null);
+    //care manager
+    const [careManagerData, setCareManagerData] = useState(null);
+    //add toggle
     const [isActive, setActive] = useState(true);
     //add modal
     const [Addnew, setAddNew] = useState(false);
@@ -37,42 +40,56 @@ const {authToken,user} = useAuth();
 
     //fetch Api
     const fetchWellnessData = async () => {
-        if (!authToken) return; 
+        if (!authToken) return;
         try {
-          const response = await getWellnessGuide(authToken); 
-          if(response && response.data){
-            setWellnessData(response.data);
-          }else{
-            setErrorMessage('No wellness data available.');
-          }
+            const response = await getWellnessGuide(authToken);
+            if (response && response.data) {
+                setWellnessData(response.data);
+            } else {
+                setErrorMessage('No wellness data available.');
+            }
         } catch (error) {
-          setErrorMessage('Error occurred while fetching wellness data: ' + error.message);
+            setErrorMessage('Error occurred while fetching wellness data: ' + error.message);
         }
-      };
-      const fetchTotalTasksData = async () => {
-        if (!authToken) return; 
+    };
+    const fetchTotalTasksData = async () => {
+        if (!authToken) return;
         try {
-          const response = await getAllPatientTask(authToken); 
-          console.log('API Response:', response);
-          if(response && response.data){
-            setTodos(response.data.inCompleteTaskList || []);
-            setCompleteTask(response.data.completedTaskList || [])
-          }else{
-            setErrorMessage('Error Occured');
-          }
+            const response = await getAllPatientTask(authToken);
+            console.log('API Response:', response);
+            if (response && response.data) {
+                setTodos(response.data.inCompleteTaskList || []);
+                setCompleteTask(response.data.completedTaskList || [])
+            } else {
+                setErrorMessage('Error Occured');
+            }
         } catch (error) {
-          setErrorMessage('Error occurred while fetching total tasks: ' + error.message);
+            setErrorMessage('Error occurred while fetching total tasks: ' + error.message);
         }
-      };
-      // Fetch both wellness data and tasks when token changes
-      useEffect(() => {
+    };
+    const fetchCareManagerData = async () => {
+        if (!authToken) return;
+        try {
+            const response = await getCareManagerDetails(authToken);
+            if (response && response.data) {
+                setCareManagerData(response.data.careManager[0] || null);
+            } else {
+                setErrorMessage('No care manager data available.');
+            }
+        } catch (error) {
+            setErrorMessage('Error occurred while fetching care manager data: ' + error.message);
+        }
+    }
+    // Fetch both wellness data and tasks when token changes
+    useEffect(() => {
         if (authToken) {
-          fetchWellnessData();
-          fetchTotalTasksData();
+            fetchWellnessData();
+            fetchTotalTasksData();
+            fetchCareManagerData();
         }
-      }, [authToken]);
+    }, [authToken]);
 
- //task count
+    //task count
     const totalTask = wellnessData ? wellnessData.totalTask : 0;
     const completedTask = wellnessData ? wellnessData.completedTask : 0;
 
@@ -86,12 +103,12 @@ const {authToken,user} = useAuth();
 
     const handleInputChange = (event) => {
         const value = event.currentTarget.value;
-        setInputValue(value); 
-     if (value.trim() !== "") {
-            setErrorMessage(''); 
+        setInputValue(value);
+        if (value.trim() !== "") {
+            setErrorMessage('');
         }
     }
-   
+
     //store todo task in local storage
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
@@ -107,7 +124,7 @@ const {authToken,user} = useAuth();
         if (task) {
             // Remove task from todos
             setTodos((prevTodos) => prevTodos.filter((t) => t.id !== task.id));
-    
+
             // Add task to completeTask with completed set to true
             setCompleteTask((prevCompleteTask) => [
                 ...prevCompleteTask,
@@ -115,7 +132,7 @@ const {authToken,user} = useAuth();
             ]);
         }
     }
-   //undo task
+    //undo task
     const undoTask = (task) => {
         setCompleteTask((prevCompleteTask) =>
             prevCompleteTask.filter((t) => t.id !== task.id) // Remove task from completeTask
@@ -131,28 +148,25 @@ const {authToken,user} = useAuth();
     const onClickBtn = () => {
         // Check if input value is empty (trimmed to handle leading/trailing spaces)
         if (inputValue.trim() === "") {
-            setAddNew(false); // Keep the modal open for input
-            setErrorMessage('The Title field is required.'); // Set the error message
+            setAddNew(false);
+            setErrorMessage('The Title field is required.');
         } else {
-            setAddNew(true); // Allow the modal to close or proceed
-            setErrorMessage(''); // Clear any previous error messages
+            setAddNew(true);
+            setErrorMessage('');
         }
     }
-
-
-
     //edit task
     const handleEdit = (task) => {
-        setSelectedTask(task); // Set task to be edited
-        setInputValue(task.title); // Pre-fill title in modal
-        setDescription(task.description); // Pre-fill description in modal
-        setAddNew(true); // Open modal in edit mode
+        setSelectedTask(task);
+        setInputValue(task.title);
+        setDescription(task.description);
+        setAddNew(true);
     };
 
 
-  //handle discription and submit task
+    //handle discription and submit task
 
-    
+
     const handleDescriptionChange = (event) => {
         const value = event.target.value;
         setDescription(value || '');
@@ -182,7 +196,7 @@ const {authToken,user} = useAuth();
         }
     }
 
-    
+
     return (
         <>
             <div className="card-dashboard scrol-inner">
@@ -223,8 +237,8 @@ const {authToken,user} = useAuth();
                                     <p><span className="text-capitalize">{wellnessData ? wellnessData.gender : 'N/A'}</span>, {wellnessData ? wellnessData.age : 'N/A'} years old</p>
                                 </div>
                                 <div className="po-mai">
-                                    <h1 id="tasks-marks">{wellnessData ? wellnessData.completedTask : 0} / 
-                                    {wellnessData ? wellnessData.totalTask : 0}</h1>
+                                    <h1 id="tasks-marks">{wellnessData ? wellnessData.completedTask : 0} /
+                                        {wellnessData ? wellnessData.totalTask : 0}</h1>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +286,7 @@ const {authToken,user} = useAuth();
                             <div id="Patient-task">
                                 {/* add new task */}
                                 {completeTask && (
-                                    <Task todos={todos} onRemove={handleDelete} onComplete={markTaskComplete} onEdit={handleEdit}/>
+                                    <Task todos={todos} onRemove={handleDelete} onComplete={markTaskComplete} onEdit={handleEdit} />
                                 )
 
                                 }
@@ -294,8 +308,8 @@ const {authToken,user} = useAuth();
                                         <ol className="new-field p-0">
                                             <li className="d-flex add-new-field">
                                                 <div className="input-field">
-                                                    <input type="text" placeholder="Add New Task" 
-                                                    value={inputValue}
+                                                    <input type="text" placeholder="Add New Task"
+                                                        value={inputValue}
                                                         onChange={handleInputChange}
                                                         className="new-tsk"
                                                         name="addnewval"
@@ -307,14 +321,14 @@ const {authToken,user} = useAuth();
                                                 </div>
                                                 <div className="add-tsk-btn">
                                                     <button id="button" className="save-btn-task" onClick={onClickBtn}>SAVE AS A NEW TASK </button>
-                                                    <Modals show={Addnew} close={() => setAddNew(false)} 
-                                                         handleChange={handleInputChange} 
-                                                         inputValue={inputValue}
-                                                         description={description}
-                                                         handleDescriptionChange={handleDescriptionChange}
-                                                         error={errorMessage}
-                                                         submit={handleSubmit}
-                                                        />
+                                                    <Modals show={Addnew} close={() => setAddNew(false)}
+                                                        handleChange={handleInputChange}
+                                                        inputValue={inputValue}
+                                                        description={description}
+                                                        handleDescriptionChange={handleDescriptionChange}
+                                                        error={errorMessage}
+                                                        submit={handleSubmit}
+                                                    />
                                                 </div>
                                             </li>
                                         </ol>
@@ -347,7 +361,7 @@ const {authToken,user} = useAuth();
 
                                                         <Dropdown.Menu align={"end"}>
                                                             <Dropdown.Item ><button onClick={() => undoTask(task)}>Incomplete</button></Dropdown.Item>
-                                                            <Dropdown.Item><button onClick={()=> handleEdit(index)} >Edit</button></Dropdown.Item>
+                                                            <Dropdown.Item><button onClick={() => handleEdit(index)} >Edit</button></Dropdown.Item>
                                                             <Dropdown.Item><button>Delete</button></Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
@@ -367,18 +381,18 @@ const {authToken,user} = useAuth();
                                     <h4 className="care-team-heading text-center">Your Care Team</h4>
                                     <div className="care-team-detail">
                                         <div className="care-team-image">
-                                            <img src={careManageImage} alt="care-manager" />
+                                            <img src={careManagerData ? careManagerData.imagePath : "N/A"} alt="care-manager" />
                                         </div>
                                         <div className="care-team-des">
                                             <div className="fl-ct">
-                                                <h5>Sobia Khan</h5>
+                                                <h5>{careManagerData ? careManagerData.firstName:"N/A"} {careManagerData ? careManagerData.lastName:"N/A"}</h5>
                                                 <p className="m-0">Your
                                                     Care Manager
                                                 </p>
                                             </div>
-                                            <address> 104 Whispering Pine Ave, <br /> Abbott, Texas, 77546</address>
+                                            <address> {careManagerData ? careManagerData.address : "N/A"}, <br /> {careManagerData ? careManagerData.city : "N/A"}, {careManagerData ? careManagerData.state : "N/A"}, {careManagerData ? careManagerData.zipCode : "N/A"}</address>
                                         </div>
-                                        <button type="button" className="btn-send-m btn-primary send-request">Send message</button></div>
+                                        <button type="button" className="btn-send-m btnll-primary send-request">Send message</button></div>
                                 </div>
                             </div>
                         </div>

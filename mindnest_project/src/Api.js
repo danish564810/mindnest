@@ -206,4 +206,28 @@ const getAllPatientTask = async(token)=> {
         throw error; 
     }
     }
-export { loginApi, registrationApi, verificationCodeApi,verifyCode,forgotPassword,resetPassword,checkUSer,getWellnessGuide,getAllPatientTask };
+
+    //care manager details
+    const getCareManagerDetails = async(token)=>{
+        try {
+            const response = await api.post('/api/Patient/GetCareManagerDetails',{}, {
+                headers: {
+                    Authorization : `Bearer ${token}`,
+                },
+            });
+            return response.data;
+            
+        } catch (error) {
+            throw error; 
+        }
+    }
+export { loginApi, 
+        registrationApi,
+        verificationCodeApi,
+        verifyCode,forgotPassword,
+        resetPassword,
+        checkUSer,
+        getWellnessGuide,
+        getAllPatientTask, 
+        getCareManagerDetails 
+    };

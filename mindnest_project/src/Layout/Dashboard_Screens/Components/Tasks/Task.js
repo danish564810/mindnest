@@ -10,8 +10,10 @@ function Task({ todos, onRemove, onComplete, onEdit }) {
         2: 'DetermineBenchmark',
         3: 'meetYourCareManager',
         4: 'chooseYourSubscription',
-        14: 'intakeRegistration',
+        10: 'choosePharmacy',
         12: 'addAllergies',
+        14: 'intakeRegistration',
+        
 
     }
     const getTaskStyles = (type) => {
@@ -32,20 +34,37 @@ function Task({ todos, onRemove, onComplete, onEdit }) {
                     image: allergiesImage,
                     backgroundColor: '#DEA785',
                     minHeight: '180px',
-                    borderRadius: '20px'
+                    borderRadius: '20px',
+                    gridRowStart: 'span 2' ,
+                    alignItems: 'start',
+                    overflow: 'hidden',
+
                 };
             case 'chooseYourSubscription':
                 return {
                     image: subscriptionImage,
-                    backgroundColor: '#B7AE95',// Light blue
+                    backgroundColor: '#B7AE95',
                     minHeight: '180px',
-                    borderRadius: '20px'
+                    borderRadius: '20px',
+                    gridRowStart: 'span 2',
+                    alignItems: 'start', 
+                    overflow: 'hidden',
+                };
+                case 'choosePharmacy':
+                return {
+                    image: phramacyImage,
+                    backgroundColor: '#9ABDB5',
+                    minHeight: '180px',
+                    borderRadius: '20px',
+                    gridRowStart: 'span 2',
+                    alignItems: 'start', 
+                    overflow: 'hidden',
                 };
 
             default:
                 return {
                     image: null,
-                    backgroundColor: '#DB9367', // Default white background
+                    backgroundColor: '#DB9367', 
                     minHeight: '85px',
                     borderRadius: '20px'
                 };
@@ -63,11 +82,11 @@ function Task({ todos, onRemove, onComplete, onEdit }) {
                         {todos.length > 0 ? (
                             todos.map((todo, i) => {
                                 const taskType = taskTypeMap[todo.type] || 'default';
-                                const { image = null, backgroundColor, minHeight, borderRadius } = getTaskStyles(taskType);
+                                const { image = null, backgroundColor, minHeight, borderRadius,gridRowStart,alignItems,overflow } = getTaskStyles(taskType);
                                 return (
-                                    <li className="task" key={i} style={{ backgroundColor, borderRadius }}>
+                                    <li className="task" key={i} style={{gridRowStart,overflow  }}>
                                         <div className="custom-task-sec sec-space">
-                                            <div className='add-new-inner d-flex due-inn' style={{minHeight}}>
+                                            <div className='add-new-inner d-flex due-inn' style={{minHeight,backgroundColor, borderRadius, alignItems}}>
                                                 {todo.title}
 
                                                 <div className='dropdown-main'>
