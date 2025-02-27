@@ -10,21 +10,25 @@
   color: #fff;
 }
 
-.ModalButton {
+.btn-modal {
   width: 275px;
   height: 50px;
   border-radius: 10px;
   border: 0;
-  color: #fff;
+  color: white;
   font-family: "MazzardH-semibold";
   position: relative;
   transition: 0.5s ease;
-  z-index: 9;
   overflow: hidden;
   font-size: 16px;
+  background: var(--dashboard-secondary) !important;
+}
+.btn-modal:hover {
+  background: var(--dashboard-secondary) !important;
+  color: white;
 }
 @media screen and (min-width: 767px) {
-  .ModalButton {
+  .btn-modal {
     border-radius: 10px;
     font-size: 20px;
     height: 50px;

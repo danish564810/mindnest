@@ -14,7 +14,7 @@ import CustomSelect from "../../../../Plugins/Select2/CustomSelect";
 
 
 
-const Modals = ({
+const AddNewModal = ({
     close,
     show,
     inputValue,
@@ -99,9 +99,7 @@ const Modals = ({
 
                 </Form>
 
-            </Modal>
-
-        </>
+            </Modal></>
     )
 }
-export default Modals;
+export default AddNewModal;

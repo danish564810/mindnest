@@ -1,10 +1,17 @@
 
 :root{
+    --dashboard-secondary : #5E63BC;
+    --intake-label : 12px;
+    --label-color : #9A9A9A;
+    --modal-fontSize: 16px;
     --themebuttoncolor: #5E63BC;
+    --gradientClorPrimary : linear-gradient(270deg, #ede5d6 0%, #ccd8d6 98.29%); 
     --primary: #222222;
     --blueHaze: #B9BFD4;
     --header-height: 75px;
     --sidebar-width: 273px;
+    --nav-links : rgba(34, 34, 34, .5);
+    --primary-heading: #45314F;
     --duenow-width: 100%;
     --duenow-height: 98px;
     --duealergieSubsciption-height: 182px;
@@ -24,4 +31,5 @@
     --account-logo-size: 40px;
     --header-main-height:70px;
     --due-Raduis : 25px;
+    --input-Color : #f7f7f7;
 }

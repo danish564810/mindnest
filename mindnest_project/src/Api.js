@@ -2,7 +2,6 @@ import axios from "axios";
 
 // Create an axios instance to manage base URL and headers
 const api = axios.create({
-    // baseURL: 'https://localhost:7031',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -221,6 +220,22 @@ const getAllPatientTask = async(token)=> {
             throw error; 
         }
     }
+    //patient appointment
+    const getPatientAppointment = async(token)=>{
+        try {
+            const response = await api.post('/api/Patient/PatientAppointments',{}, {
+                headers: {
+                    Authorization : `Bearer ${token}`,
+                },
+            });
+            return response.data;
+            
+        } catch (error) {
+            throw error; 
+        }
+    }
+
+   
 export { loginApi, 
         registrationApi,
         verificationCodeApi,
@@ -229,5 +244,7 @@ export { loginApi,
         checkUSer,
         getWellnessGuide,
         getAllPatientTask, 
-        getCareManagerDetails 
+        getCareManagerDetails ,
+        getPatientAppointment,
+        
     };

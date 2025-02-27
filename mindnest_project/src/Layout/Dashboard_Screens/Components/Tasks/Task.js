@@ -4,7 +4,7 @@ import subscriptionImage from "../../../../assests/images/subscription-img.png"
 import phramacyImage from "../../../../assests/images/choose-pharmecy-image.png"
 import allergiesImage from "../../../../assests/images/add-alergies.png"
 
-function Task({ todos, onRemove, onComplete, onEdit }) {
+function Task({ todos, onRemove, onComplete, onEdit, openIntake }) {
     const taskTypeMap = {
         1: 'accountCreation',
         2: 'DetermineBenchmark',
@@ -76,6 +76,7 @@ function Task({ todos, onRemove, onComplete, onEdit }) {
             <div className="ds-tx">
                 <h4>Due now</h4>
             </div>
+            <button onClick={openIntake}> open intake</button>
             <div className="ds-de-cards">
                 <div className="due-task-main">
                     <ol className="due-task-inner">

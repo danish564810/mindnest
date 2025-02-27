@@ -73,7 +73,7 @@ label {
   padding: 19px 24px 17px;
   height: 45px;
   font-size: 20px;
-  border-radius: 15px;
+  border-radius: 10px;
   background: #fff;
   font-family: "MazzardH-medium";
   cursor: pointer;
@@ -83,12 +83,8 @@ label {
   box-shadow: none;
 }
 .datepicker-dashboard .react-datepicker__input-container input::-moz-placeholder {
-  color: #9A9A9A;
-  font-family: "Mazzard_Italic";
-  font-weight: 600;
+  visibility: hidden;
 }
 .datepicker-dashboard .react-datepicker__input-container input::placeholder {
-  color: #9A9A9A;
-  font-family: "Mazzard_Italic";
-  font-weight: 600;
+  visibility: hidden;
 }/*# sourceMappingURL=DateTimePicker.css.map */

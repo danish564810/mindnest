@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../../useAuth/useAuth";
 import { useNavigate } from "react-router-dom";
+import noProfile from "../../../../assests/svgs/no-Shape.svg";
 import './header.css'
 import MindnestLogo from "../../../../assests/svgs/Mnlogo.svg";
 import { Link } from "react-router-dom";
@@ -44,7 +45,7 @@ if(!authToken){
                             <div className="dropdown" onClick={() => setOpen(!open)}>
                                 <div className="dropdown-toggle d-flex align-items-center">
                                     <div className="user-image-container">
-                                        <img className="profile-pic" src={user ? user.profileImage : 'N/A'} alt="profile-picture"/>
+                                        <img className="profile-pic" src={user && user.profileImage ? user.profileImage : noProfile} alt="profile-picture"/>
                                         <div className="online-mark"></div>
                                     </div>
                                     <div className="user-name">

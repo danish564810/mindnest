@@ -3,11 +3,13 @@ import { useAuth } from "../../../../useAuth/useAuth";
 import { getWellnessGuide } from "../../../../Api";
 import { getAllPatientTask } from "../../../../Api";
 import { getCareManagerDetails } from "../../../../Api";
-import Modals from "../../Components/Modal/Modal";
+import { getPatientAppointment } from "../../../../Api";
+import IntakeModal from "../../Components/Modal/IntakeModal";
+import AddNewModal from "../../Components/Modal/AddNewModal";
 import Dropdown from 'react-bootstrap/Dropdown';
 import hiImage from "../../../../assests/images/hi_image.png";
+import noPatient from "../../../../assests/svgs/no-Shape.svg"
 import Task from "../../Components/Tasks/Task";
-import careManageImage from "../../../../assests/images/care-manager-image.png"
 
 const Home = () => {
     //First name
@@ -17,10 +19,14 @@ const Home = () => {
     const [wellnessData, setWellnessData] = useState(null);
     //care manager
     const [careManagerData, setCareManagerData] = useState(null);
+    //patient appointment
+    const [patientAppointment, setPatientAppointment] = useState(null);
     //add toggle
     const [isActive, setActive] = useState(true);
     //add modal
     const [Addnew, setAddNew] = useState(false);
+    //show modal
+    const [showModal, setShowModal] = useState(false);
     //show error message
     const [errorMessage, setErrorMessage] = useState(false);
     //get value
@@ -30,6 +36,7 @@ const Home = () => {
         const savedTodos = localStorage.getItem('todos');
         return savedTodos ? JSON.parse(savedTodos) : [];
     });
+    
     //complete state
     const [completeTask, setCompleteTask] = useState(() => {
         const savedCompleteTasks = localStorage.getItem('completeTask');
@@ -39,6 +46,7 @@ const Home = () => {
     const [selectedTask, setSelectedTask] = useState('');
 
     //fetch Api
+    //wallness guide
     const fetchWellnessData = async () => {
         if (!authToken) return;
         try {
@@ -52,14 +60,17 @@ const Home = () => {
             setErrorMessage('Error occurred while fetching wellness data: ' + error.message);
         }
     };
+    
+    //total task
     const fetchTotalTasksData = async () => {
         if (!authToken) return;
         try {
             const response = await getAllPatientTask(authToken);
-            console.log('API Response:', response);
             if (response && response.data) {
-                setTodos(response.data.inCompleteTaskList || []);
-                setCompleteTask(response.data.completedTaskList || [])
+                const { completedTaskList = [], inCompleteTaskList = [] } = response.data;
+              setTodos(inCompleteTaskList); // Incomplete tasks
+              setCompleteTask(completedTaskList); // Completed tasks
+                
             } else {
                 setErrorMessage('Error Occured');
             }
@@ -67,6 +78,7 @@ const Home = () => {
             setErrorMessage('Error occurred while fetching total tasks: ' + error.message);
         }
     };
+    //care manager
     const fetchCareManagerData = async () => {
         if (!authToken) return;
         try {
@@ -80,14 +92,38 @@ const Home = () => {
             setErrorMessage('Error occurred while fetching care manager data: ' + error.message);
         }
     }
+    //fetch patient appointment
+    
+    const fetchPatientAppoitnment = async () => {
+        if (!authToken) return;
+        try {
+            const response = await getPatientAppointment(authToken);
+            if (response && response.data) {
+                setPatientAppointment(response.data.appointments[0] || null);
+            } else {
+                setErrorMessage('No care manager data available.');
+            }
+        } catch (error) {
+            setErrorMessage('Error occurred while fetching care manager data: ' + error.message);
+        }
+    }
+   
     // Fetch both wellness data and tasks when token changes
     useEffect(() => {
         if (authToken) {
             fetchWellnessData();
             fetchTotalTasksData();
             fetchCareManagerData();
+            fetchPatientAppoitnment();
         }
     }, [authToken]);
+
+//show modal
+const modalOpen = () =>{
+    setShowModal(true);
+}
+
+
 
     //task count
     const totalTask = wellnessData ? wellnessData.totalTask : 0;
@@ -155,6 +191,7 @@ const Home = () => {
             setErrorMessage('');
         }
     }
+
     //edit task
     const handleEdit = (task) => {
         setSelectedTask(task);
@@ -247,49 +284,59 @@ const Home = () => {
                 <div className="detail-tsk">
                     <div className="detail-inner d-flex">
                         <div className="col-xl-8 col-lg-9 col-md-8 col-sm-12 dashboard-left">
-                            <div className="join-call">
-                                <div className="comin-event-heading">
-                                    <h4>Upcoming</h4>
-                                </div>
-                                <div id="Patient-Appointments">
-                                    <div className="join-call-inner">
-                                        <div className="pro-call-main">
-                                            <div className="provider-call mb-4">
-                                                <div className="call-provider d-flex">
-                                                    <div className="provider-image">
-                                                        <img src="" alt="" />
+                           
+                                    <div className="join-call">
+                                        <div className="comin-event-heading">
+                                            <h4>Upcoming</h4>
+                                        </div>
+                                        <div id="Patient-Appointments">
+                                        {patientAppointment ? (
+                                            <div className="join-call-inner">
+                                                <div className="pro-call-main">
+                                                    <div className="provider-call mb-4">
+                                                        <div className="call-provider d-flex">
+                                                            <div className="provider-image">
+                                                                <img src={patientAppointment ? patientAppointment.doctorPic : ''} alt="" />
+                                                            </div>
+                                                            <div className="provider-details">
+                                                                <div className="provider-name mb-1">{patientAppointment.doctorName || 'N/A'}</div>
+                                                                <ul className="provider-specialization d-flex p-0">
+                                                                    <li className="specialization-list text-muted"> {patientAppointment.title || 'N/A'}</li>
+                                                                    <li className="specialization-list provider-location text-muted"> {patientAppointment.city || 'N/A'} </li>
+                                                                </ul>
+                                                                <div className="date-time">Video on  Video on {patientAppointment.startDate || 'N/A'}@{patientAppointment.startTime || 'N/A'} </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="join-call-btn">
+                                                            <button href="#" className="Join-Call btn-primary btn-secondary d-flex align-items-center justify-content-center">
+                                                                <div className="icon-video-user schedual-icons">
+                                                                </div>  Reschedule
+                                                            </button>
+                                                            <button className="cancel-call d-flex align-items-center justify-content-center CancelAppointmentBtn" >
+                                                                <div className="icon-panciluser">
+                                                                </div> Cancel
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div className="provider-details">
-                                                        <div className="provider-name mb-1">Tina Jones</div>
-                                                        <ul className="provider-specialization d-flex p-0">
-                                                            <li className="specialization-list text-muted">Psychiatrist</li>
-                                                            <li className="specialization-list provider-location text-muted"> Ace </li>
-                                                        </ul>
-                                                        <div className="date-time">Video on 8/06 @ 08:00am</div>
-                                                    </div>
-                                                </div>
-                                                <div className="join-call-btn">
-                                                    <button href="#" className="Join-Call btn-primary btn-secondary d-flex align-items-center justify-content-center">
-                                                        <div className="icon-video-user schedual-icons">
-                                                        </div>  Reschedule
-                                                    </button>
-                                                    <button className="cancel-call d-flex align-items-center justify-content-center CancelAppointmentBtn" >
-                                                        <div className="icon-panciluser">
-                                                        </div> Cancel
-                                                    </button>
                                                 </div>
                                             </div>
+                                            ) : (
+                                                <div className="no-appointments">
+                                                    <p>No appointments available!</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                
+
+                            
                             <div id="Patient-task">
                                 {/* add new task */}
                                 {completeTask && (
-                                    <Task todos={todos} onRemove={handleDelete} onComplete={markTaskComplete} onEdit={handleEdit} />
+                                    <Task todos={todos} onRemove={handleDelete} onComplete={markTaskComplete} onEdit={handleEdit} openIntake= {modalOpen}/>
                                 )
-
                                 }
+                                <IntakeModal show={showModal} close={() => setShowModal(false)} />
 
 
                                 {/* Add new custom task section */}
@@ -321,7 +368,7 @@ const Home = () => {
                                                 </div>
                                                 <div className="add-tsk-btn">
                                                     <button id="button" className="save-btn-task" onClick={onClickBtn}>SAVE AS A NEW TASK </button>
-                                                    <Modals show={Addnew} close={() => setAddNew(false)}
+                                                    <AddNewModal show={Addnew} close={() => setAddNew(false)}
                                                         handleChange={handleInputChange}
                                                         inputValue={inputValue}
                                                         description={description}
@@ -334,8 +381,7 @@ const Home = () => {
                                         </ol>
                                     </div>
                                 </div>
-
-                                {/* Completed tasks section */}
+                                  {/* Completed tasks section */}
                                 <div className="text-complete mt-2">
                                     <h4>Completed</h4>
                                 </div>
@@ -381,18 +427,18 @@ const Home = () => {
                                     <h4 className="care-team-heading text-center">Your Care Team</h4>
                                     <div className="care-team-detail">
                                         <div className="care-team-image">
-                                            <img src={careManagerData ? careManagerData.imagePath : "N/A"} alt="care-manager" />
+                                            <img src={careManagerData && careManagerData.imagePath ? careManagerData.imagePath : noPatient} alt="care-manager" />
                                         </div>
                                         <div className="care-team-des">
                                             <div className="fl-ct">
-                                                <h5>{careManagerData ? careManagerData.firstName:"N/A"} {careManagerData ? careManagerData.lastName:"N/A"}</h5>
+                                                <h5>{careManagerData ? careManagerData.firstName : "N/A"} {careManagerData ? careManagerData.lastName : "N/A"}</h5>
                                                 <p className="m-0">Your
                                                     Care Manager
                                                 </p>
                                             </div>
                                             <address> {careManagerData ? careManagerData.address : "N/A"}, <br /> {careManagerData ? careManagerData.city : "N/A"}, {careManagerData ? careManagerData.state : "N/A"}, {careManagerData ? careManagerData.zipCode : "N/A"}</address>
                                         </div>
-                                        <button type="button" className="btn-send-m btnll-primary send-request">Send message</button></div>
+                                        <button type="button" className="btn-send-m btn-primary send-request">Send message</button></div>
                                 </div>
                             </div>
                         </div>

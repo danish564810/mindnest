@@ -1,0 +1,21 @@
+$dashboardHeight : 45px;
+$dashbboardFont : 1rem;
+
+.dashboard-select2{
+    .react-select__value-container {
+        height:$dashboardHeight;
+        padding: 0px 8px;
+        .react-select__single-value {
+            font-size: $dashbboardFont;
+        }
+        .react-select__input-container{
+            height: $dashboardHeight;
+            margin:0;
+            padding-top: 0;
+            padding-bottom: 0;
+            .react-select__input{
+                height: $dashboardHeight;
+            }
+        }
+    }
+}

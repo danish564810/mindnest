@@ -1,1 +1,16 @@
-/*# sourceMappingURL=CustomSelect.css.map */
+.dashboard-select2 .react-select__value-container {
+  height: 45px;
+  padding: 0px 8px;
+}
+.dashboard-select2 .react-select__value-container .react-select__single-value {
+  font-size: 1rem;
+}
+.dashboard-select2 .react-select__value-container .react-select__input-container {
+  height: 45px;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.dashboard-select2 .react-select__value-container .react-select__input-container .react-select__input {
+  height: 45px;
+}/*# sourceMappingURL=CustomSelect.css.map */

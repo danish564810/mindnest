@@ -1,19 +1,21 @@
 import React from 'react'
 import Select from 'react-select';
 import './CustomSelect.css'
+import { ValueContainer } from 'react-select/animated';
 
 
 function CustomSelect({ options, placeholder, styleOverride, onChange, value, layout }) {
+    const selectClass = layout === 'dashboard' ? 'dashboard-select2' : 'account-select2';
     const minHeight = layout === 'dashboard' ? '45px' : '60px';
     const borderRadius = layout === 'dashboard' ? '10px' : '0 15px 15px 0'
     const border = layout === 'dashboard' ? '1px solid rgba(0, 0, 0, 0.06)' : '0px'
-    const selectClass = layout === 'dashboard' ? 'dashboard-select2' : 'account-select2';
     const accountPlaceholderStyle = layout === 'account' ? {
         color: '#9A9A9A', // Placeholder color for account layout
         fontFamily: '"Mazzard_Italic"', // Font style for account layout
         fontWeight: '600', // Font weight for account layout
         fontSize: '20px', // Optional font size for placeholder
     } : {};
+    
     const defaultStyles = {
         control: (styles) => ({
             ...styles, backgroundColor: '#F7F7F7',
@@ -33,7 +35,13 @@ function CustomSelect({ options, placeholder, styleOverride, onChange, value, la
             fontStyle: accountPlaceholderStyle.fontStyle || 'normal',
             fontWeight: accountPlaceholderStyle.fontWeight || 'normal',
             fontFamily: accountPlaceholderStyle.fontFamily || '"Mazzard_Italic", sans-serif',
+            marginLeft : accountPlaceholderStyle.marginLeft || '6px',
         }),
+        indicatorSeparator: (styles) => ({ 
+            ...styles,
+            display: 'none',  
+        }),
+      
         singleValue: (styles) => ({
             ...styles,
             color: '#222222',
@@ -79,6 +87,8 @@ function CustomSelect({ options, placeholder, styleOverride, onChange, value, la
     return (
         <div className={selectClass}>
             <Select
+            className="react-select-container"
+            classNamePrefix="react-select"
                 options={options}
                 placeholder={placeholder}
                 styles={colorStyles}

@@ -7,7 +7,7 @@
 }
 .modal-header h5 {
   font-family: "MazzardH-Ragular" !important;
-  font-size: 20px;
+  font-size: calc(var(--modal-fontSize) + 4px);
   color: #45314f;
 }
 .modal-header .close {
@@ -36,7 +36,9 @@
 }
 
 .modal-content {
-  border-radius: 25px;
+  background-color: transparent;
+  border-radius: none;
+  border: none;
 }
 
 .modal-footer {
@@ -45,4 +47,170 @@
   color: #45314f;
   padding: 0 40px 30px;
   flex-direction: column;
+}
+
+.modal-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--bs-modal-color);
+  pointer-events: auto;
+  background-color: var(--bs-modal-bg);
+  background-clip: padding-box;
+  border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+  border-radius: var(--bs-modal-border-radius);
+  outline: 0;
+  border-radius: 25px;
+}
+
+.slide-pop {
+  transition: all cubic-bezier(0.82, 0.01, 0, 1.03) 1.2s;
+  border-radius: 25px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  border-radius: 25px;
+}
+
+.move {
+  position: absolute;
+  transform: translateX(-100%) scale(0);
+}
+
+.slided {
+  animation: FadeForm 1s;
+  transform: translateX(100%) scale(0);
+  z-index: 999999;
+  position: absolute;
+}
+
+@keyframes FadeForm {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.frmcls label {
+  position: unset;
+  left: 0;
+}
+
+@media screen and (min-width: 991px) {
+  .intake-header p {
+    font-size: 20px;
+    color: var(--primary-heading);
+  }
+  .intake-heading h5 {
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    color: var(--primary-heading);
+  }
+  .intake-modal p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+  .btn-intake .btn-left {
+    margin-right: 15px;
+  }
+}
+@media screen and (min-width: 576px) {
+  .btn-intake {
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .btn-intake .btn-left, .btn-intake .btn-right {
+    width: 211px;
+  }
+  .btn-intake .btn-left button, .btn-intake .btn-right button {
+    height: 50px;
+    border-radius: 10px;
+    width: 100%;
+    font-family: "MazzardH-semibold";
+    font-size: 20px;
+  }
+  .btn-intake .btn-right-inner {
+    background-color: #fff;
+    color: var(--primary);
+    border: 2px solid #cdd8d6;
+  }
+}
+form label {
+  font-size: var(--intake-label);
+  color: var(--label-color);
+  font-family: "MazzardH-semibold";
+  margin-bottom: 2px !important;
+}
+form input {
+  background-color: var(--input-Color) !important;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+  height: 45px;
+}
+
+.fcins {
+  padding-bottom: 30px;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+.nav-tabs .nav-item .nav-link {
+  border: 0;
+  color: var(--nav-links);
+  font-family: "MazzardH-medium";
+}
+.nav-tabs .nav-item .nav-link.active {
+  color: var(--primary);
+  border-bottom: 1px solid var(--primary);
+}
+
+.fspc {
+  margin-top: 20px;
+}
+
+.checkboxes {
+  margin-top: 20px;
+}
+.checkboxes .form-check:first-child {
+  margin-right: 20px;
+}
+.checkboxes label {
+  color: var(--primary);
+  font-family: "MazzardH-Ragular";
+  font-size: 14px;
+}
+
+.form-check-input {
+  border: 1px solid rgba(0, 0, 0, 0.1019607843);
+}
+.form-check-input:checked {
+  background-color: var(--dashboard-secondary) !important;
+}
+.form-check-input:focus {
+  border-color: none;
+  box-shadow: unset;
+  border: 1px solid rgba(0, 0, 0, 0.1019607843);
+}
+
+.form-control {
+  border: 1px solid rgba(0, 0, 0, 0.031372549);
+}
+.form-control:focus {
+  border-color: none;
+  box-shadow: unset;
+  border: 0;
 }/*# sourceMappingURL=Modal.css.map */
