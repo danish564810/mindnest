@@ -50,3 +50,84 @@ h1,h2,h3,h4,h5,h6{
     margin-bottom: 0;
     margin-top: 5px;
 }
+.total-insurance, .total-invoice, .total-medication, .total-member, .total-contcts{
+  position: absolute;
+  top: 23px;
+  font-size: 14px;
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+}
+@media screen and (min-width:576px) {
+  .total-insurance, .total-invoice, .total-medication, .total-member, .total-contcts{
+    font-size: 16px;
+  }
+}
+ul{
+  margin:0;
+  padding: 0;
+}
+.details ul .list-items{
+  width: 100%;
+    height: 56px;
+    border-radius: 10px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.details ul .list-items{
+  width: 100%;
+}
+.cardimage-container{
+  margin-right: 11.24px;
+  width: 40.44px;
+  height: 40.44px;
+}
+@media screen and (min-width:992px) {
+  .cardimage-container{
+    margin-right: 10px;
+  }
+}
+.defaultinitials{
+  width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    font-size: 10px !important;
+    font-family: "MazzardH-medium" !important;
+    color: #fff;
+    background-color: #413d45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+.det-in .familyMemberName{
+  font-size: 11px;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width:992px) {
+  .det-in .familyMemberName{
+    font-size: 12px;
+  }
+}
+.varified{
+  display: inline-block;
+    width: auto;
+    height: 9.5px;
+    position: relative;
+}
+.memberAge h5{
+  font-size: 9px;
+    font-family: "MazzardH-medium";
+    color: rgba(34, 34, 34, .6);
+}
+.varified img{
+  width: 100%;
+  height: 100%;
+  margin-left: 2px;
+  display: flex;
+  align-items: center;
+}

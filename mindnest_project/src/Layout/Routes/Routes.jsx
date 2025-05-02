@@ -8,7 +8,9 @@ import PhoneNumber from "../Account_Screens/Pages/ForgotPassword/Phone";
 import Email from "../Account_Screens/Pages/ForgotPassword/Email";
 import ResetPassword from "../Account_Screens/Pages/ResetPassword";
 import ResetSuccessfully from "../Account_Screens/Pages/ResetSuccessfully";
+import PatientProfile from "../Dashboard_Screens/Pages/patient-profile/PatientProfile";
 import SuccessfulVerification from "../Account_Screens/Pages/VerificatoinScreen";
+
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Routers = () =>{
@@ -26,6 +28,7 @@ const Routers = () =>{
             <Route exact path="/ResetSuccessfully" element={<ResetSuccessfully/>} />
             <Route exact path="/successfulVerification" element={<SuccessfulVerification/>} />
             <Route path="/" element = {<PrivateRoute element={<Dashboard/>}/>}/> 
+            <Route path="/patientProfile" element = {<PrivateRoute element={<PatientProfile/>}/>}/>
            
             </Routes>
         </Router>

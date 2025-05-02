@@ -1,0 +1,70 @@
+.card {
+  padding: 0 !important;
+  background: #fff !important;
+  border: 0;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+.card .card-header {
+  height: 50px !important;
+  padding: 0 24px;
+  display: flex !important;
+  align-items: center !important;
+  background: #fff !important;
+  border-bottom: 0.8px solid rgba(0, 0, 0, 0.25);
+  border-radius: 17px 17px 0 0;
+  margin-bottom: 0;
+}
+.card .card-header h5 {
+  font-size: 14px;
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+}
+@media screen and (min-width: 786px) {
+  .card .card-header {
+    font-size: 16px;
+  }
+}
+.card .card-body {
+  padding: 20px 24px 30px;
+  position: relative;
+  border-radius: 0 0 20px 20px;
+}
+
+.edit-fields {
+  position: absolute;
+  top: 23px;
+  right: 20px;
+}
+@media screen and (min-width: 992px) {
+  .edit-fields {
+    right: 25px;
+  }
+}
+.edit-fields button {
+  font-size: 18px;
+  font-family: "MazzardH-medium";
+  color: var(--Palatinate-Blue);
+  border: 0;
+  background: transparent;
+  border-bottom: 1px solid var(--Palatinate-Blue);
+  padding: 0;
+}
+
+.profile-inner .card {
+  margin-bottom: 30px;
+}
+
+.card-body-inner {
+  margin-top: 45px;
+}
+@media screen and (min-width: 992px) {
+  .card-body-inner {
+    margin-top: 41px;
+  }
+}
+
+.details:last-child {
+  margin-bottom: 0;
+  position: relative;
+}/*# sourceMappingURL=card.css.map */

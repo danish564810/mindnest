@@ -401,7 +401,7 @@ p {
 }
 .join-call .join-call-inner hr {
   margin-bottom: 0px !important;
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   opacity: 1;
 }
 
@@ -1245,17 +1245,17 @@ p {
   min-height: 45px;
   font-family: "MazzardH-medium";
   font-size: 16px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   border: 2px solid rgba(0, 0, 0, 0.06);
   border-radius: 10px;
 }
 .form-floating .form-control:not(:-moz-placeholder-shown) ~ label {
   font-family: "MazzardH-medium";
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 .form-floating .form-control:not(:placeholder-shown) ~ label {
   font-family: "MazzardH-medium";
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 .form-floating .form-control:not(:-moz-placeholder-shown) ~ label:after {
   inset: 0 !important;
@@ -1272,10 +1272,10 @@ p {
   padding: 0.6rem 0.75rem;
   font-family: "MazzardH-medium";
   font-size: 16px;
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 .form-floating > label:after {
-  background-color: #F7F7F7 !important;
+  background-color: #f7f7f7 !important;
 }
 
 .error {
@@ -1351,4 +1351,388 @@ p {
 
 .det-banc .btn-primary {
   color: #222222 !important;
+}
+
+.scrol-inner {
+  height: 100%;
+  overflow: auto;
+}
+
+.user-profile-background {
+  border-radius: 50px 0 0 0;
+  background-repeat: no-repeat;
+  position: relative;
+  background: linear-gradient(132.57deg, #ccd8d6 11.08%, #eee5d6 64.22%);
+  padding-left: 1px;
+}
+.user-profile-background .background-image .mobile-web,
+.user-profile-background .background-image .mobile-vector {
+  display: none;
+}
+@media screen and (min-width: 767px) {
+  .user-profile-background .background-image .mobile-web {
+    display: block;
+  }
+  .user-profile-background .background-image .mobile-vector {
+    display: none;
+  }
+}
+@media screen and (max-width: 766px) {
+  .user-profile-background .background-image .mobile-vector {
+    display: block;
+  }
+}
+.user-profile-background .background-image img {
+  height: 196px;
+  opacity: 0.5;
+  width: 100%;
+}
+.user-profile-background .profile-pic {
+  width: 210px;
+  height: 210px;
+  position: absolute;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid #e5f7ff;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(45deg);
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  background: #fff;
+  top: -61px;
+}
+@media screen and (min-width: 1440px) {
+  .user-profile-background .profile-pic {
+    width: 223px;
+    height: 223px;
+  }
+}
+.user-profile-background .profile-pic .-label {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.user-profile-background .profile-pic input {
+  display: none;
+}
+.user-profile-background .profile-pic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+  z-index: 0;
+}
+
+.image-border label {
+  transform: rotate(315deg);
+}
+
+.user-image-container {
+  position: relative;
+  width: 38.9px;
+  height: 38.9px;
+  background-color: #d1e3f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-inner-main-section {
+  background: #fff;
+  border-radius: 50px 0 0 0;
+  position: relative;
+  top: 0;
+}
+.profile-inner-main-section .user-profile-background-inner .user-profile-detail-inner {
+  position: relative;
+  width: 100%;
+  border-radius: 0 0 25px 25px;
+  padding: 28px 50px 0;
+}
+
+.background-image {
+  height: 105px !important;
+}
+
+.patient-detail-main {
+  margin-bottom: 30px;
+}
+@media screen and (min-width: 1440px) {
+  .patient-detail-main {
+    margin-left: 238px;
+  }
+}
+
+.user-profile-background .patient-name .user-name {
+  font-size: 18px;
+  font-family: "MazzardH-semibold";
+  margin-bottom: 0px;
+}
+@media screen and (min-width: 768px) {
+  .user-profile-background .patient-name .user-name {
+    font-size: 22px;
+  }
+}
+.user-profile-background .patient-age .user-age {
+  font-size: 12px;
+  font-family: "Mazzard_Italic";
+}
+
+.verified_profile {
+  width: 14px;
+  height: 15px;
+  margin-left: 4px;
+}
+@media screen and (min-width: 992px) {
+  .verified_profile {
+    width: 19.26px;
+    height: 19.26px;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .patient-name-age {
+    margin-top: 28px;
+    width: 60%;
+  }
+}
+
+.user-profile-background .patient-email-main {
+  position: relative;
+}
+.user-profile-background h5 {
+  margin-bottom: 0;
+}
+
+.spac-bet {
+  margin-right: 25px;
+  margin-bottom: 6.54px;
+}
+.spac-bet p {
+  font-size: 10px;
+  font-family: "MazzardH-Ragular";
+}
+@media screen and (min-width: 992px) {
+  .spac-bet p {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+}
+
+.profle-fields {
+  width: 100%;
+  font-size: 12px;
+  outline: 0;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 768px) {
+  .profle-fields {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .profle-fields {
+    font-size: 16px;
+  }
+}
+
+.patient-profile-subscription-method {
+  position: relative;
+  margin: 0;
+  padding: 50px 50px 50px 50px;
+  background-color: #f6f7fb;
+  border-radius: 50px 0 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media screen and (min-width: 1200px) {
+  .patient-profile-subscription-method .patient-profile-subscription-method-inner {
+    justify-content: space-between;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .patient-profile-subscription-method .col-xl-4 {
+    width: 32.1%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .patient-profile-subscription-method .col-xl-8 {
+    width: 65.3%;
+  }
+}
+
+.patient-do-dis {
+  padding-right: 30px;
+}
+@media screen and (min-width: 1200px) {
+  .patient-do-dis {
+    padding-right: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .sb-mai-inn {
+    width: 65%;
+  }
+}
+.sb-mai-inn .transection-secure {
+  padding-left: 16px;
+  position: relative;
+}
+.sb-mai-inn .transection-secure p {
+  font-size: 12px;
+  font-family: "MazzardH-Ragular";
+}
+.sb-mai-inn .transection-secure::after {
+  content: "*";
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+}
+
+.subscription-card-image {
+  display: none;
+}
+@media screen and (min-width: 992px) {
+  .subscription-card-image {
+    width: 35%;
+    display: block;
+  }
+}
+
+.subscription-plans-main {
+  flex-wrap: wrap;
+}
+@media screen and (min-width: 992px) {
+  .subscription-plans-main {
+    margin-bottom: 47px !important;
+  }
+}
+.subscription-plans-main .subscrip-marg {
+  width: 50%;
+  margin-bottom: 25px;
+}
+@media screen and (min-width: 992px) {
+  .subscription-plans-main .subscrip-marg {
+    width: unset !important;
+    margin-right: 33px;
+  }
+}
+.subscription-plans-main p {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-family: "Mazzard_Light";
+}
+.subscription-plans-main h6 {
+  margin: 0;
+  font-family: "MazzardH-medium";
+}
+
+@media screen and (min-width: 768px) {
+  .desktop-spec {
+    width: 46% !important;
+    margin-bottom: 12px !important;
+  }
+}
+@media screen and (min-width: 992px) {
+  .desktop-spec {
+    width: 43% !important;
+    margin-right: 15px;
+  }
+  .desktop-spec h5 {
+    font-size: 11.55px;
+  }
+}
+@media screen and (min-width: 1350px) {
+  .desktop-spec {
+    width: 45% !important;
+  }
+  .desktop-spec h5 {
+    font-size: 13px;
+    margin-top: 3px;
+  }
+}
+.desktop-spec h5 {
+  font-family: "MazzardH-medium";
+}
+
+.typeOfContct {
+  margin-top: 13px !important;
+}
+.typeOfContct .profle-fields {
+  font-size: 14px !important;
+}
+.typeOfContct h5 {
+  margin-left: 5px;
+  color: rgba(34, 34, 34, 0.75);
+}
+
+.checkbox-img-container {
+  position: relative;
+  top: -8px;
+  width: 16px !important;
+  height: 15px !important;
+}
+.checkbox-img-container img {
+  width: 16px !important;
+  height: 15px !important;
+  max-width: unset;
+}
+
+.def-content .tab-pane {
+  font-size: 12px;
+  font-family: "MazzardH-Ragular";
+  color: var(--primary);
+  line-height: 1.2rem;
+  font-weight: 500;
+}
+
+.def-container h5 {
+  font-size: 14px;
+  font-family: "MazzardH-medium";
+  margin-bottom: 0;
+}
+.def-container p {
+  font-size: 13px;
+}
+
+.def-container p {
+  width: 240px;
+}
+
+.edit-pahr-fields {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+@media screen and (min-width: 991px) {
+  .edit-pahr-fields {
+    right: 21.55px;
+  }
+}
+.edit-pahr-fields button {
+  font-size: 18px;
+  font-family: "MazzardL-Medium";
+  color: var(--Palatinate-Blue);
+  border: 0;
+  background: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1px solid #1249ee;
+  padding: 0;
+}
+
+.card-body-inner:has(.details .def-container) {
+  margin-top: 0 !important;
 }/*# sourceMappingURL=dashboard.css.map */
