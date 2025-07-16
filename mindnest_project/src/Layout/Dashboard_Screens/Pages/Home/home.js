@@ -25,6 +25,7 @@ const Home = () => {
     const [isActive, setActive] = useState(true);
     //add modal
     const [Addnew, setAddNew] = useState(false);
+    const [registeringFor, setRegisteringFor] = useState(null); 
     //show modal
     const [showModal, setShowModal] = useState(false);
     //show error message
@@ -336,7 +337,7 @@ const modalOpen = () =>{
                                     <Task todos={todos} onRemove={handleDelete} onComplete={markTaskComplete} onEdit={handleEdit} openIntake= {modalOpen}/>
                                 )
                                 }
-                                <IntakeModal show={showModal} close={() => setShowModal(false)} />
+                                <IntakeModal show={showModal} close={() => setShowModal(false)} setRegisteringFor={setRegisteringFor} />
 
 
                                 {/* Add new custom task section */}

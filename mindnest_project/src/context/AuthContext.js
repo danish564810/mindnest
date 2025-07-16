@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import useIntakeStore from "../Store/intakeStore";
 import Cookies from 'js-cookie';
 import { loginApi } from "../Api";
 
@@ -23,6 +24,13 @@ export const AuthProvider = ({ children }) => {
   const [code, setCode] = useState(Cookies.get('code') || null);
   const [emailOrPhone, setEmailOrPhone] = useState(Cookies.get('emailOrPhone') || null);
   const [flowType, setFlowType] = useState(Cookies.get('flowType') || null);
+  const clearStore = useIntakeStore((s) => s.clearStore);
+  // useEffect(() => {
+  //   if (user?.id) {
+  //     console.log("✅ Clearing intake store on user login");
+  //     clearStore();
+  //   }
+  // }, [user?.id]);
 
   // Sync state with localStorage on state change
   useEffect(() => {

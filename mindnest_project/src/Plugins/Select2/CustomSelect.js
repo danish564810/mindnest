@@ -1,10 +1,11 @@
 import React from 'react'
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import './CustomSelect.css'
 import { ValueContainer } from 'react-select/animated';
 
 
-function CustomSelect({ options, placeholder, styleOverride, onChange, value, layout }) {
+function CustomSelect({ options, placeholder, styleOverride, onChange, value, layout, isMulti = false, creatable = false }) {
     const selectClass = layout === 'dashboard' ? 'dashboard-select2' : 'account-select2';
     const minHeight = layout === 'dashboard' ? '45px' : '60px';
     const borderRadius = layout === 'dashboard' ? '10px' : '0 15px 15px 0'
@@ -84,9 +85,11 @@ function CustomSelect({ options, placeholder, styleOverride, onChange, value, la
         })
     }
     const colorStyles = styleOverride || defaultStyles;
+     const SelectComponent = creatable ? CreatableSelect : Select;
     return (
         <div className={selectClass}>
-            <Select
+            
+            <SelectComponent
             className="react-select-container"
             classNamePrefix="react-select"
                 options={options}
@@ -94,6 +97,7 @@ function CustomSelect({ options, placeholder, styleOverride, onChange, value, la
                 styles={colorStyles}
                 onChange={onChange}
                 value={value}
+                isMulti={isMulti}
             />
         </div>
     )

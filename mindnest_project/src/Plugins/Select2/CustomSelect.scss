@@ -1,21 +1,45 @@
 $dashboardHeight : 45px;
 $dashbboardFont : 1rem;
 
-.dashboard-select2{
+.dashboard-select2 {
     .react-select__value-container {
-        height:$dashboardHeight;
+        height: $dashboardHeight;
         padding: 0px 8px;
+
         .react-select__single-value {
             font-size: $dashbboardFont;
         }
-        .react-select__input-container{
+
+        .react-select__input-container {
             height: $dashboardHeight;
-            margin:0;
+            margin: 0;
             padding-top: 0;
             padding-bottom: 0;
-            .react-select__input{
+
+            .react-select__input {
                 height: $dashboardHeight;
             }
         }
+    }
+}
+
+.react-select__input {
+    grid-area: auto !important;
+}
+
+.react-select__value-container {
+    padding: 0 !important;
+}
+
+.react-select__multi-value {
+    background-color: rgba(94, 99, 188, 0.2) !important;
+    border-radius: 5.33px !important;
+    color: rgba(69, 49, 79, 0.75);
+}
+
+.react-select__multi-value__remove {
+    &:hover {
+        background-color: rgba(94, 99, 188, 0.2) !important;
+        color: rgba(69, 49, 79, 0.75) !important;
     }
 }

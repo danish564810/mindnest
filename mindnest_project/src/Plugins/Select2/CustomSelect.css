@@ -13,4 +13,23 @@
 }
 .dashboard-select2 .react-select__value-container .react-select__input-container .react-select__input {
   height: 45px;
+}
+
+.react-select__input {
+  grid-area: auto !important;
+}
+
+.react-select__value-container {
+  padding: 0 !important;
+}
+
+.react-select__multi-value {
+  background-color: rgba(94, 99, 188, 0.2) !important;
+  border-radius: 5.33px !important;
+  color: rgba(69, 49, 79, 0.75);
+}
+
+.react-select__multi-value__remove:hover {
+  background-color: rgba(94, 99, 188, 0.2) !important;
+  color: rgba(69, 49, 79, 0.75) !important;
 }/*# sourceMappingURL=CustomSelect.css.map */

@@ -1735,4 +1735,505 @@ p {
 
 .card-body-inner:has(.details .def-container) {
   margin-top: 0 !important;
+}
+
+@media screen and (min-width: 576px) {
+  .phar-main {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .search-pharmecy {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .switch-modal .toggle-icons {
+    padding-right: 12px;
+  }
+}
+.switch-modal .toggle-icons .search-input {
+  width: 100%;
+  margin-right: 8px;
+  position: relative;
+}
+@media screen and (min-width: 767px) {
+  .switch-modal .toggle-icons .search-input {
+    top: 5px;
+    margin-right: 0;
+  }
+}
+.switch-modal .toggle-icons input {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #f8f9fe;
+  border: 0;
+  outline: 0;
+  padding-left: 35px;
+  font-family: "MazzardH-medium";
+  font-size: 10px;
+}
+@media screen and (min-width: 576px) {
+  .switch-modal .toggle-icons input {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .phar-m {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .phar-toggle-main {
+    padding-right: 12px;
+  }
+}
+@media screen and (min-width: 767px) {
+  .phar-toggle-main {
+    display: block !important;
+  }
+}
+@media screen and (min-width: 576px) {
+  .phar-toggle-main .toggle-city-zip {
+    margin-bottom: 23px;
+  }
+}
+.phar-toggle-main .toggle-city-zip .city-name-field,
+.phar-toggle-main .toggle-city-zip .zip-code-field {
+  position: relative;
+  z-index: 1;
+}
+@media screen and (min-width: 575px) {
+  .phar-toggle-main .toggle-city-zip .city-name-field,
+  .phar-toggle-main .toggle-city-zip .zip-code-field {
+    width: 48%;
+  }
+}
+.phar-toggle-main .toggle-city-zip .city-name-field label,
+.phar-toggle-main .toggle-city-zip .zip-code-field label {
+  font-size: 12px;
+  font-family: "MazzardH-semibold";
+  color: var(--primary);
+  margin: 0 0 6px;
+  font-weight: 600;
+  line-height: initial;
+  position: relative;
+  top: 0;
+}
+@media screen and (min-width: 992px) {
+  .phar-toggle-main .toggle-city-zip .city-name-field label,
+  .phar-toggle-main .toggle-city-zip .zip-code-field label {
+    font-size: 14px;
+  }
+}
+.phar-toggle-main .toggle-city-zip input {
+  width: 100%;
+  height: 40px;
+  border-radius: 9.62px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 10px;
+  font-family: "MazzardH-medium";
+  padding-left: 12px;
+}
+@media screen and (min-width: 992px) {
+  .phar-toggle-main .toggle-city-zip input {
+    font-size: 14px;
+  }
+}
+
+.Pharmacy-name,
+.insurance-list-name {
+  height: 208px;
+  overflow: auto;
+  padding: 0 10px 0 0;
+}
+@media screen and (min-width: 576px) {
+  .Pharmacy-name,
+  .insurance-list-name {
+    margin-top: 20px;
+    min-height: 240px;
+  }
+  .Pharmacy-name .pharmecy-items,
+  .insurance-list-name .pharmecy-items {
+    margin-bottom: 18px;
+    padding-right: 10px;
+  }
+}
+.Pharmacy-name .pharmecy-items,
+.insurance-list-name .pharmecy-items {
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.Pharmacy-name .pharmecy-items .phar-image,
+.insurance-list-name .pharmecy-items .phar-image {
+  width: auto;
+}
+.Pharmacy-name .pharmecy-items .phar-image .phar-image-container,
+.insurance-list-name .pharmecy-items .phar-image .phar-image-container {
+  width: 59.47px;
+  height: 59.47px;
+}
+.Pharmacy-name .pharmecy-items .phar-detail,
+.insurance-list-name .pharmecy-items .phar-detail {
+  line-height: 14px;
+  margin-left: 15px;
+}
+.Pharmacy-name .pharmecy-items .phar-detail .phar-name,
+.insurance-list-name .pharmecy-items .phar-detail .phar-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+}
+.Pharmacy-name .pharmecy-items .phar-detail .phar-address,
+.insurance-list-name .pharmecy-items .phar-detail .phar-address {
+  font-size: 12px;
+  margin-bottom: 10px;
+  font-family: "MazzardH-medium";
+  color: rgba(34, 34, 34, 0.6);
+}
+
+.defaultinitials {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  font-size: 10px !important;
+  font-family: "MazzardH-medium" !important;
+  color: #fff;
+  background-color: #413d45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.pharm-next {
+  background-color: var(--primary);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36.89px;
+  height: 35.89px;
+  border-radius: 50px;
+}
+@media screen and (min-width: 576px) {
+  .pharm-next {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.wrapper {
+  min-height: 159px;
+  position: relative;
+  padding: 16px;
+  background-color: var(--modal-secondary);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.wrapper textarea {
+  resize: none;
+  background: transparent;
+  font-size: 12px;
+  font-family: "MazzardH-Ragular";
+  color: var(--primary);
+  width: 100%;
+  height: 100%;
+  border: 0;
+  min-height: 159px;
+}
+@media screen and (min-width: 992px) {
+  .wrapper textarea {
+    font-size: 16px;
+  }
+}
+.wrapper textarea:focus-visible {
+  outline: none;
+}
+
+.word-counter {
+  position: absolute;
+  right: 9px;
+  bottom: 8px;
+  font-size: 12px;
+  font-family: "MazzardH-medium";
+}
+@media screen and (min-width: 992px) {
+  .word-counter {
+    font-size: 16px;
+  }
+}
+
+.zui-wrapper {
+  position: relative;
+  height: 445px;
+  margin-bottom: 26px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.zui-scroller {
+  margin-left: 120px;
+  overflow-x: scroll;
+  overflow-y: visible;
+}
+
+.zui-table {
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 25px;
+  font: normal 13px Arial, sans-serif;
+}
+
+.zui-table .zui-sticky-col {
+  border-right: solid 1px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: auto;
+  left: 0;
+  width: 120px;
+  font-family: "MazzardH-medium";
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 10.8px 10px;
+  text-align: justify !important;
+}
+.zui-table .zui-sticky-col h6 {
+  font-size: 12px;
+  font-family: "MazzardH-medium";
+}
+.zui-table thead th {
+  border: 0;
+  color: var(--primary);
+  padding: 10.8px 10px;
+  text-align: left;
+  text-shadow: 1px 1px 1px #fff;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  font-family: "MazzardH-medium";
+  text-align: center;
+}
+.zui-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.zui-table thead th h6 {
+  font-size: 12px;
+  font-family: "MazzardH-medium";
+}
+.zui-table tbody td {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.25);
+  color: var(--primary);
+  padding: 10px 40px;
+  text-shadow: 1px 1px 1px #fff;
+  white-space: nowrap;
+}
+
+.form-check-input {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position-x: 3px !important;
+  overflow: visible;
+  background-position-y: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: 13px !important;
+  margin-top: 0 !important;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cus-para {
+  margin-bottom: 35px;
+}
+
+.range {
+  position: relative;
+  width: 100%;
+  height: 5px;
+}
+.range input {
+  width: 100%;
+  height: 0;
+  position: absolute;
+  top: 2px;
+  -webkit-appearance: none;
+  z-index: 9999;
+}
+.range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  margin: -8px -5px 0;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 7px solid #5e63bc;
+  z-index: 9999;
+  position: relative;
+  top: -2px;
+}
+.range input::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: -8px 0 0;
+  background: white;
+  cursor: pointer;
+  border: 7px solid #5e63bc;
+  z-index: 9999;
+  position: relative;
+  top: -2px;
+}
+.range input::-ms-thumb {
+  width: 26px;
+  height: 26px;
+  margin: -8px -5px 0;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 7px solid #5e63bc;
+  z-index: 9999;
+  position: relative;
+  top: -2px;
+}
+.range input::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: #eef1ff;
+}
+.range input::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: #eef1ff;
+}
+.range input::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: #eef1ff;
+}
+.range input:focus {
+  background: none;
+  outline: none;
+}
+.range input::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.range-labels {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.range-labels li {
+  position: relative;
+  float: left;
+  width: auto;
+  text-align: center;
+  color: #b2b2b2;
+  font-size: 14px;
+  cursor: pointer;
+}
+.range-labels li:before {
+  position: absolute;
+  top: -26.5px;
+  left: 0;
+  right: 0;
+  content: "";
+  margin: 0 auto;
+  width: 10.52px;
+  height: 10.52px;
+  border-radius: 50%;
+  background: #eef1ff;
+}
+.range-labels li .count {
+  font-size: 12px;
+  font-family: "MazzardH-medium";
+  color: #332e2e;
+  margin: 0;
+}
+
+.smoke-section {
+  margin-top: 70px;
+}
+
+.intake-list .intake-items {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 11px 0;
+}
+.intake-list .intake-items label {
+  position: relative;
+  font-size: 12px;
+  font-family: "MazzardH-medium";
+  color: var(--primary);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+@media screen and (min-width: 992px) {
+  .intake-list .intake-items label {
+    font-size: 16px;
+  }
+}
+
+.pharm-next {
+  background-color: #c4c4c4;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36.89px;
+  height: 35.89px;
+  border-radius: 50px;
+}
+@media screen and (min-width: 575px) {
+  .pharm-next {
+    width: 50px;
+    height: 50px;
+  }
+}
+.pharm-next .phar-next-icon {
+  border: 0;
+  background: none;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+.pharm-next.selected {
+  background-color: #5e63bc;
+}
+
+.other-txt .text-area {
+  width: 50%;
+  height: 35px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background: transparent;
+  font-family: "MazzardH-Ragular";
+  font-size: 12px;
+  padding: 0;
 }/*# sourceMappingURL=dashboard.css.map */

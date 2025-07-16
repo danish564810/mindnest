@@ -56,8 +56,9 @@ label{
   /* Dashboard layout styles */
   .datepicker-dashboard .react-datepicker__input-container input {
     @include DtpSharedInput();
+padding: .375rem .75rem;
     height: 45px;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 10px;
     background: #fff;
     font-family: "MazzardH-medium";
