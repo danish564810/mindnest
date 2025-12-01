@@ -17,7 +17,7 @@ const SocialHistorySlide = ({ goToNextSlide }) => {
     setError(""); // Clear previous errors
     goToNextSlide(11);
   };
-
+  const isEmpty = socialHistory.trim().length === 0;
   return (
     <div className="modal-body-inner intake-modal">
       <div className="modal-title">
@@ -52,6 +52,7 @@ const SocialHistorySlide = ({ goToNextSlide }) => {
           type="button"
           className="btn-modal btn btn-primary"
           onClick={handleSubmit}
+          disabled={isEmpty}
         >
           Continue
         </button>

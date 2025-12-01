@@ -6,6 +6,7 @@ const HearAboutFooter = ({ goToNextSlide }) => {
   const hearAboutUsAnswers = useIntakeStore((state) => state.hearAboutUsAnswers);
   const otherAboutUsText = useIntakeStore((state) => state.otherAboutUsText);
   const setConsents = useIntakeStore((state) => state.setConsents);
+  
 
   const handleSubmit = async () => {
     try {
@@ -20,9 +21,10 @@ const HearAboutFooter = ({ goToNextSlide }) => {
       console.error("Submission failed:", error.message);
     }
   };
+  const isAnySelected = Object.values(hearAboutUsAnswers).some(Boolean);
 
   return (
-    <button type="submit" className="btn-modal btn btn-primary" onClick={handleSubmit}>
+    <button type="submit" className="btn-modal btn btn-primary" onClick={handleSubmit} disabled={!isAnySelected}>
       Continue
     </button>
   );

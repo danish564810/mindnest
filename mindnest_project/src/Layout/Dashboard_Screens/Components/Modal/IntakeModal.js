@@ -16,6 +16,7 @@ import { intakePatientStatusApi } from "../../../../Api";
 import { intakeIndependentPatientApi } from "../../../../Api";
 import DivorceSlide from "../Intake/Divorce/Divorce";
 import DependentPatientForm from "../Intake/DependentPatient/DependentPatient";
+import IntakeIndependentPatientForm from "../Intake/IntakeIndependentPatientForm/IntakeIndependentPatientForm";
 import DrivingLicenseSlide from "../Intake/License/License";
 import MedicationPrescribe from "../Intake/MedicationPrescribe/MedicationPrescribe";
 import { intakeMedicationPrecscribeApi } from "../../../../Api";
@@ -104,7 +105,6 @@ const IntakeModal = ({ show, close, taskId }) => {
     allergiesRef.current = value;
   };
   let selectedPharmacyRef = { current: null };
-  const [patientStatus, setPatientStatus] = React.useState('');
 
   const slideContent = [
     // intake slide 1(index 0) New Patient
@@ -133,7 +133,7 @@ const IntakeModal = ({ show, close, taskId }) => {
               }));
             }
 
-            goToNextSlide(1);
+            goToNextSlide();
           } catch (err) {
             console.error("Patient status update failed:", err);
             alert("Failed to save patient status. Please try again.");
@@ -170,218 +170,247 @@ const IntakeModal = ({ show, close, taskId }) => {
       id: "YourselfOtherSlide",
       title: "Onboarding Intake",
       discriptionHeading: "Are you registering yourself or someone else?",
-      discriptionParagraph: "If the patient is 13 years old or younger then a legal guardian or a biological parent must register and accompany the patient.",
+      discriptionParagraph:
+        "If the patient is 13 years old or younger then a legal guardian or a biological parent must register and accompany the patient.",
       renderBody: () => null,
-      renderFooter: (goToNextSlide, _, { setRegisteringFor }) => (
+      renderFooter: (goToNextSlide) => (
         <div className="btn-intake d-flex">
           <div className="btn-left">
             <button
-              type="submit"
+              type="button"
               className="btn-left-inner btn-modal"
-              onClick={() => {
-                setRegisteringFor("myself");
-                goToNextSlide(2);
+              onClick={async () => {
+                try {
+                  setRegisteringFor("myself");
+                  goToNextSlide();
+                  await intakePatientStatusApi({ depIndepStatus: "Independent" }); // or your actual API call
+                } catch (err) {
+                  console.error(err);
+                }
               }}
-
             >
               Myself
             </button>
           </div>
           <div className="btn-right">
             <button
-              type="submit"
+              type="button"
               className="btn-right-inner"
-              onClick={() => {
-                setRegisteringFor("someone_else");
-                goToNextSlide(3);
+              onClick={async () => {
+                try {
+                  setRegisteringFor("someone_else");
+                  goToNextSlide();
+                  await intakePatientStatusApi({ depIndepStatus: "Dependent" });
+                } catch (err) {
+                  console.error(err);
+                }
               }}
+
             >
               Someone else
             </button>
           </div>
         </div>
-      )
+      ),
     },
 
     // intake slide 3(index 2) Independent Patient
+    // {
+    //   id: "IntakeIndependentPatientForm",
+    //   title: "Onboard Intake",
+    //   discriptionHeading: "Tell us about yourself",
+    //   renderBody: (goToNextSlide) => {
+    //     const genderOptions = [
+    //       { label: "Male", value: "male" },
+    //       { label: "Female", value: "female" },
+    //       { label: "Other", value: "other" },
+    //     ];
+
+    //     const IntakeIndependentPatientFormBody = () => {
+    //       const today = new Date();
+    //       const intakeIndependentPatientForm = useIntakeStore(
+    //         (state) => state.intakeIndependentPatientForm
+    //       );
+    //       const setIntakeIndependentPatientField = useIntakeStore(
+    //         (state) => state.setIntakeIndependentPatientField
+    //       );
+    //       const [errors, setErrors] = useState({});
+
+    //       const getSafeForm = (form) => ({
+    //         firstName: form.firstName || '',
+    //         lastName: form.lastName || '',
+    //         dob: form.dob || null,
+    //         gender: form.gender || '',
+    //         address: form.address || '',
+    //         state: form.state || '',
+    //         city: form.city || '',
+    //         zipCode: form.zipCode || '',
+    //       });
+
+    //       const [localForm, setLocalForm] = useState(getSafeForm(intakeIndependentPatientForm));
+
+    //       useEffect(() => {
+    //         setLocalForm(getSafeForm(intakeIndependentPatientForm));
+    //       }, [intakeIndependentPatientForm]);
+
+    //       const handleChange = (field, value) => {
+    //         setLocalForm((prev) => ({ ...prev, [field]: value }));
+    //       };
+
+    //       const handleSubmit = async (e) => {
+    //         e.preventDefault();
+
+    //         const formData = {
+    //           FirstName: localForm.firstName,
+    //           LastName: localForm.lastName,
+    //           DOB: localForm.dob ? format(new Date(localForm.dob), "MM/dd/yyyy") : "",
+    //           Gender: localForm.gender,
+    //           FullAddress: localForm.address,
+    //           Address: localForm.address,
+    //           State: localForm.state || "Texas",
+    //           City: localForm.city || "Los Angeles",
+    //           ZipCode: localForm.zipCode || "77584",
+    //         };
+
+    //         const response = await intakeIndependentPatientApi(formData);
+
+    //         if (response.success) {
+    //           setErrors({});
+    //           setIntakeIndependentPatientField(localForm);
+    //           goToNextSlide();
+    //         } else {
+    //           const fieldErrors = {};
+    //           response.errors?.forEach((msg) => {
+    //             const lower = msg.toLowerCase();
+    //             if (lower.includes("first name")) fieldErrors.firstName = msg;
+    //             else if (lower.includes("last name")) fieldErrors.lastName = msg;
+    //             else if (lower.includes("dob")) fieldErrors.dob = msg;
+    //             else if (lower.includes("gender")) fieldErrors.gender = msg;
+    //             else if (lower.includes("address")) fieldErrors.address = msg;
+    //           });
+    //           setErrors(fieldErrors);
+    //         }
+    //       };
+
+    //       return (
+    //         <Form className="frmcls" onSubmit={handleSubmit}>
+    //           <div className="fcins">
+    //             <Form.Group controlId="formName">
+    //               <div className="name-fields row fspc">
+    //                 <div className="first-name fields col-6 ps-0">
+    //                   <Form.Label>First Name</Form.Label>
+    //                   <Form.Control
+    //                     type="text"
+    //                     value={localForm.firstName}
+    //                     onChange={(e) => handleChange("firstName", e.target.value)}
+    //                     isInvalid={!!errors.firstName}
+    //                   />
+    //                   {errors.firstName && (
+    //                     <div className="text-danger">{errors.firstName}</div>
+    //                   )}
+    //                 </div>
+    //                 <div className="last-name fields col-6 pe-0">
+    //                   <Form.Label>Last Name</Form.Label>
+    //                   <Form.Control
+    //                     type="text"
+    //                     value={localForm.lastName}
+    //                     onChange={(e) => handleChange("lastName", e.target.value)}
+    //                     isInvalid={!!errors.lastName}
+    //                   />
+    //                   {errors.lastName && (
+    //                     <div className="text-danger">{errors.lastName}</div>
+    //                   )}
+    //                 </div>
+    //               </div>
+    //             </Form.Group>
+
+    //             <Form.Group controlId="formBasicGender">
+    //               <div className="dob-gender row fspc">
+    //                 <div className="user-dob fields col-6 ps-0">
+    //                   <Form.Label>Date of Birth</Form.Label>
+    //                   <DateTimePicker
+    //                     layout="dashboard"
+    //                     selected={localForm.dob}
+    //                     onChange={(date) => handleChange("dob", date)}
+    //                     format="MM/DD/YYYY"
+    //                     minDate={new Date("1900-01-01")}
+    //                     maxDate={today}
+    //                   />
+    //                   {errors.dob && (
+    //                     <div className="text-danger">{errors.dob}</div>
+    //                   )}
+    //                 </div>
+    //                 <div className="gender fields col-6 pe-0">
+    //                   <Form.Label>Gender</Form.Label>
+    //                   <CustomSelect
+    //                     options={genderOptions}
+    //                     layout="dashboard"
+    //                     value={genderOptions.find(opt => opt.value === localForm.gender)}
+    //                     onChange={(e) => handleChange("gender", e.value)}
+    //                   />
+    //                   {errors.gender && (
+    //                     <div className="text-danger">{errors.gender}</div>
+    //                   )}
+    //                 </div>
+    //               </div>
+    //             </Form.Group>
+
+    //             <Form.Group controlId="formBasicAddress">
+    //               <div className="user-address fspc">
+    //                 <Form.Label>Address</Form.Label>
+    //                 <Form.Control
+    //                   type="text"
+    //                   value={localForm.address}
+    //                   onChange={(e) => handleChange("address", e.target.value)}
+    //                   isInvalid={!!errors.address}
+    //                 />
+    //                 {errors.address && (
+    //                   <div className="text-danger">{errors.address}</div>
+    //                 )}
+    //               </div>
+    //             </Form.Group>
+    //           </div>
+
+    //           <div className="modal-footer-content text-center">
+    //             <Button className="btn-modal" type="submit">
+    //               Submit
+    //             </Button>
+    //           </div>
+    //         </Form>
+    //       );
+    //     };
+
+    //     return <IntakeIndependentPatientFormBody />;
+    //   },
+    // },
+
+
+    // intake slide 4(index 3) Dependent Patient
+    // {
+    //   id: "DependentPatientSlide",
+    //   title: "Onboard Intake",
+    //   renderBody: (key, setKey, checkedItems, handleCheckboxChange, goToNextSlide) => (
+    //     <DependentPatientForm setKey={setKey} key={key} goToNextSlide={goToNextSlide} setErrors={setErrors} errors={errors} />
+    //   ),
+    // },
+
+    //dependant and independant 
     {
-      id: "IntakeIndependentPatientForm",
+      id: "PatientFormSlide",
       title: "Onboard Intake",
-      discriptionHeading: "Tell us about yourself",
       renderBody: (goToNextSlide) => {
-        const genderOptions = [
-          { label: "Male", value: "male" },
-          { label: "Female", value: "female" },
-          { label: "Other", value: "other" },
-        ];
-
-        const IntakeIndependentPatientFormBody = () => {
-          const today = new Date();
-          const intakeIndependentPatientForm = useIntakeStore(
-            (state) => state.intakeIndependentPatientForm
-          );
-          const setIntakeIndependentPatientField = useIntakeStore(
-            (state) => state.setIntakeIndependentPatientField
-          );
-          const [errors, setErrors] = useState({});
-
-          const getSafeForm = (form) => ({
-            firstName: form.firstName || '',
-            lastName: form.lastName || '',
-            dob: form.dob || null,
-            gender: form.gender || '',
-            address: form.address || '',
-            state: form.state || '',
-            city: form.city || '',
-            zipCode: form.zipCode || '',
-          });
-
-          const [localForm, setLocalForm] = useState(getSafeForm(intakeIndependentPatientForm));
-
-          useEffect(() => {
-            setLocalForm(getSafeForm(intakeIndependentPatientForm));
-          }, [intakeIndependentPatientForm]);
-
-          const handleChange = (field, value) => {
-            setLocalForm((prev) => ({ ...prev, [field]: value }));
-          };
-
-          const handleSubmit = async (e) => {
-            e.preventDefault();
-
-            const formData = {
-              FirstName: localForm.firstName,
-              LastName: localForm.lastName,
-              DOB: localForm.dob ? format(new Date(localForm.dob), "MM/dd/yyyy") : "",
-              Gender: localForm.gender,
-              FullAddress: localForm.address,
-              Address: localForm.address,
-              State: localForm.state || "Texas",
-              City: localForm.city || "Los Angeles",
-              ZipCode: localForm.zipCode || "77584",
-            };
-
-            const response = await intakeIndependentPatientApi(formData);
-
-            if (response.success) {
-              setErrors({});
-              setIntakeIndependentPatientField(localForm);
-              goToNextSlide(4);
-            } else {
-              const fieldErrors = {};
-              response.errors?.forEach((msg) => {
-                const lower = msg.toLowerCase();
-                if (lower.includes("first name")) fieldErrors.firstName = msg;
-                else if (lower.includes("last name")) fieldErrors.lastName = msg;
-                else if (lower.includes("dob")) fieldErrors.dob = msg;
-                else if (lower.includes("gender")) fieldErrors.gender = msg;
-                else if (lower.includes("address")) fieldErrors.address = msg;
-              });
-              setErrors(fieldErrors);
-            }
-          };
-
-          return (
-            <Form className="frmcls" onSubmit={handleSubmit}>
-              <div className="fcins">
-                <Form.Group controlId="formName">
-                  <div className="name-fields row fspc">
-                    <div className="first-name fields col-6 ps-0">
-                      <Form.Label>First Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={localForm.firstName}
-                        onChange={(e) => handleChange("firstName", e.target.value)}
-                        isInvalid={!!errors.firstName}
-                      />
-                      {errors.firstName && (
-                        <div className="text-danger">{errors.firstName}</div>
-                      )}
-                    </div>
-                    <div className="last-name fields col-6 pe-0">
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={localForm.lastName}
-                        onChange={(e) => handleChange("lastName", e.target.value)}
-                        isInvalid={!!errors.lastName}
-                      />
-                      {errors.lastName && (
-                        <div className="text-danger">{errors.lastName}</div>
-                      )}
-                    </div>
-                  </div>
-                </Form.Group>
-
-                <Form.Group controlId="formBasicGender">
-                  <div className="dob-gender row fspc">
-                    <div className="user-dob fields col-6 ps-0">
-                      <Form.Label>Date of Birth</Form.Label>
-                      <DateTimePicker
-                        layout="dashboard"
-                        selected={localForm.dob}
-                        onChange={(date) => handleChange("dob", date)}
-                        format="MM/DD/YYYY"
-                        minDate={new Date("1900-01-01")}
-                        maxDate={today}
-                      />
-                      {errors.dob && (
-                        <div className="text-danger">{errors.dob}</div>
-                      )}
-                    </div>
-                    <div className="gender fields col-6 pe-0">
-                      <Form.Label>Gender</Form.Label>
-                      <CustomSelect
-                        options={genderOptions}
-                        layout="dashboard"
-                        value={genderOptions.find(opt => opt.value === localForm.gender)}
-                        onChange={(e) => handleChange("gender", e.value)}
-                      />
-                      {errors.gender && (
-                        <div className="text-danger">{errors.gender}</div>
-                      )}
-                    </div>
-                  </div>
-                </Form.Group>
-
-                <Form.Group controlId="formBasicAddress">
-                  <div className="user-address fspc">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={localForm.address}
-                      onChange={(e) => handleChange("address", e.target.value)}
-                      isInvalid={!!errors.address}
-                    />
-                    {errors.address && (
-                      <div className="text-danger">{errors.address}</div>
-                    )}
-                  </div>
-                </Form.Group>
-              </div>
-
-              <div className="modal-footer-content text-center">
-                <Button className="btn-modal" type="submit">
-                  Submit
-                </Button>
-              </div>
-            </Form>
-          );
-        };
-
-        return <IntakeIndependentPatientFormBody />;
+        if (registeringFor === "myself") {
+          return <IntakeIndependentPatientForm goToNextSlide={goToNextSlide} />;
+        } else if (registeringFor === "someone_else") {
+          return <DependentPatientForm goToNextSlide={goToNextSlide} setFormData={setFormData} />;
+        } else {
+          return <p>Please go back and select who you are registering for.</p>;
+        }
       },
     },
 
 
-    // intake slide 4(index 3) Dependent Patient
-    {
-      id: "DependentPatientSlide",
-      title: "Onboard Intake",
-      renderBody: (key, setKey, checkedItems, handleCheckboxChange, goToNextSlide) => (
-        <DependentPatientForm setKey={setKey} key={key} goToNextSlide={goToNextSlide} setErrors={setErrors} errors={errors} />
-      ),
-    },
+
     //intake slide 5 (index 4) divorce slide 
     {
       id: 'DivorceImageSlide',
@@ -501,25 +530,25 @@ const IntakeModal = ({ show, close, taskId }) => {
               </button>
               <div className="text-center">
                 <button
-  type="button"
-  className="notApplicable mt-1"
-  onClick={async () => {
-    try {
-      await submitSelectedPharmacy({
-        taskId: null,
-        name: "",
-        address: "",
-        IsNotApplicable: true,
-      });
-      goToNextSlide(9); // or whatever your next slide index is
-    } catch (error) {
-      console.error("Error skipping pharmacy:", error);
-      alert("Failed to skip pharmacy");
-    }
-  }}
->
-  Skip
-</button>
+                  type="button"
+                  className="notApplicable mt-1"
+                  onClick={async () => {
+                    try {
+                      await submitSelectedPharmacy({
+                        taskId: null,
+                        name: "",
+                        address: "",
+                        IsNotApplicable: true,
+                      });
+                      goToNextSlide(9); // or whatever your next slide index is
+                    } catch (error) {
+                      console.error("Error skipping pharmacy:", error);
+                      alert("Failed to skip pharmacy");
+                    }
+                  }}
+                >
+                  Skip
+                </button>
 
               </div>
             </div>
@@ -530,55 +559,55 @@ const IntakeModal = ({ show, close, taskId }) => {
       },
     },
     // intake slide 10(index 9) Allergies
-   {
-  id: "AllergiesSlide",
-  title: "Onboarding Intake",
-  renderBody: () => (
-    <IntakeCurrentAllergies onAllergyChange={setAllergiesSelected} />
-  ),
-  renderFooter: (goToNextSlide) => (
-    <div className="modal-footer-inner">
-      <button
-        type="button"
-        className="btn-modal btn btn-primary"
-        disabled={!allergiesRef.current || allergiesRef.current.length === 0}
-        onClick={async () => {
-          try {
-            const allergyValues = allergiesRef.current.map(
-              (a) => a.value || a.label
-            );
-            const res = await intakeAllergyApi(allergyValues, false);
-            console.log("Submitted all allergies:", allergyValues, res);
-            goToNextSlide(10);
-          } catch (error) {
-            console.error("Error submitting allergies", error);
-            alert("Failed to submit allergies");
-          }
-        }}
-      >
-        Continue
-      </button>
-      <div className="text-center">
-        <button
-          type="button"
-          className="notApplicable mt-1"
-          onClick={async () => {
-            try {
-              const res = await intakeAllergyApi([], true);
-              console.log("Skipped allergies:", res);
-              goToNextSlide(10);
-            } catch (error) {
-              console.error("Failed to skip allergies", error);
-              alert("Error skipping allergies");
-            }
-          }}
-        >
-          Skip
-        </button>
-      </div>
-    </div>
-  ),
-},
+    {
+      id: "AllergiesSlide",
+      title: "Onboarding Intake",
+      renderBody: () => (
+        <IntakeCurrentAllergies onAllergyChange={setAllergiesSelected} />
+      ),
+      renderFooter: (goToNextSlide) => (
+        <div className="modal-footer-inner">
+          <button
+            type="button"
+            className="btn-modal btn btn-primary"
+            disabled={!allergiesRef.current || allergiesRef.current.length === 0}
+            onClick={async () => {
+              try {
+                const allergyValues = allergiesRef.current.map(
+                  (a) => a.value || a.label
+                );
+                const res = await intakeAllergyApi(allergyValues, false);
+                console.log("Submitted all allergies:", allergyValues, res);
+                goToNextSlide(10);
+              } catch (error) {
+                console.error("Error submitting allergies", error);
+                alert("Failed to submit allergies");
+              }
+            }}
+          >
+            Continue
+          </button>
+          <div className="text-center">
+            <button
+              type="button"
+              className="notApplicable mt-1"
+              onClick={async () => {
+                try {
+                  const res = await intakeAllergyApi([], true);
+                  console.log("Skipped allergies:", res);
+                  goToNextSlide(10);
+                } catch (error) {
+                  console.error("Failed to skip allergies", error);
+                  alert("Error skipping allergies");
+                }
+              }}
+            >
+              Skip
+            </button>
+          </div>
+        </div>
+      ),
+    },
 
 
     // intake slide 11(index 10) social history
@@ -634,7 +663,15 @@ const IntakeModal = ({ show, close, taskId }) => {
             <button
               type="button"
               className="notApplicable mt-1"
-              onClick={() => goToNextSlide(13)}
+              onClick={async () => {
+                try {
+                  await intakeHospitalizationApi([], true);
+                  goToNextSlide(13);
+                } catch (error) {
+                  console.error("Failed to skip hospitalization", error);
+                  alert("Something went wrong while skipping.");
+                }
+              }}
             >
               Skip
             </button>
@@ -929,33 +966,19 @@ const IntakeModal = ({ show, close, taskId }) => {
 
         const data = result.data;
         console.log("Fetched intake data:", data);
-        const { illnesses, relatives, setFamilyHistory } = useIntakeStore.getState();
 
-        if (Array.isArray(data.familyHistoryVM)) {
-          const formattedFamilyHistory = illnesses.map((illness) => {
-            // find matching illness object from backend data
-            const match = data.familyHistoryVM.find(item => item.illness === illness);
-            const row = {};
-
-            relatives.forEach(relative => {
-              row[relative] = match ? match[relative] || false : false;
-            });
-
-            return row;
-          });
-
-          setFamilyHistory(formattedFamilyHistory);
-        }
 
         setIntakeData(data);
 
         const newFormData = {};
+        // new patient 
 
         newFormData.newPatient = data.patientStatus?.patientStatus ?? '';
-
+        //Independant patient 
         if (data.depIndepStatus === "Independent") {
           setShowParentSection(false);
           setShowDependentSection(false);
+          setRegisteringFor("myself");
 
           newFormData.myself = true;
           newFormData.dependent = false;
@@ -970,7 +993,7 @@ const IntakeModal = ({ show, close, taskId }) => {
           newFormData.city = p.city ?? '';
           newFormData.zip = p.zipCode ?? '';
 
-          // ✅ Fix: batch update to avoid slow typing issue
+
           setIntakeIndependentPatientField({
             firstName: p.firstName ?? '',
             lastName: p.lastName ?? '',
@@ -980,12 +1003,11 @@ const IntakeModal = ({ show, close, taskId }) => {
           });
 
         }
-
-
+        //dependant patient
         if (data.depIndepStatus === "Dependent") {
           setShowParentSection(true);
           setShowDependentSection(true);
-
+          setRegisteringFor("someone_else");
           newFormData.myself = false;
           newFormData.dependent = true;
 
@@ -1034,7 +1056,9 @@ const IntakeModal = ({ show, close, taskId }) => {
           setDependentPatientField("dependentCity", g.city ?? "");
           setDependentPatientField("dependentZipCode", g.zipCode ?? "");
         }
-
+        //divorce
+        newFormData.divorceImageContent = data?.divorced?.divorceHidden ?? null;
+        //driving 
         if (data?.driving) {
           if (data.driving.drivingFrontImageHidden) {
             setDrivingLicenseImage("front", data.driving.drivingFrontImageHidden);
@@ -1043,9 +1067,10 @@ const IntakeModal = ({ show, close, taskId }) => {
             setDrivingLicenseImage("back", data.driving.drivingBackImageHidden);
           }
         }
-        newFormData.divorceImageContent = data?.divorced?.divorceHidden ?? null;
-        newFormData.showLocalPharmacy = data?.medicationPrescribeVM?.patientStatus ?? false;
 
+        //medical prescription
+        newFormData.showLocalPharmacy = data?.medicationPrescribeVM?.patientStatus ?? false;
+        //fetch selec pharmacy
         if (data.pharmacy) {
           newFormData.pharmacy = {
             id: data.pharmacy.pharmacyId ?? null,
@@ -1059,9 +1084,7 @@ const IntakeModal = ({ show, close, taskId }) => {
               .toUpperCase(),
           };
 
-          // ✅ Set to Zustand store so UI reflects selection
           if (data.pharmacy?.pharmacyId) {
-            console.log("Setting selectedPharmacy in Zustand:", data.pharmacy);
             setSelectedPharmacy({
               id: data.pharmacy.pharmacyId,
               text: data.pharmacy.name,
@@ -1071,29 +1094,48 @@ const IntakeModal = ({ show, close, taskId }) => {
           }
         }
 
-
+        //medication
         setMedications(
           data.currentMedicationVM?.medication
             ? data.currentMedicationVM.medication.split(",").map(med => ({ label: med, value: med }))
             : []
         );
-
+        //allergies
         if (data.allergieVM?.allergies) {
           const allergiesArray = data.allergieVM.allergies.split(",");
           newFormData.allergies = allergiesArray;
           setItems(allergiesArray.map((r) => ({ label: r, value: r })));
 
-          // Keep the ref updated to enable the button on reload
           allergiesRef.current = allergiesArray.map((r) => ({ label: r, value: r }));
         }
+
+        //social history
+        newFormData.socialHistory = data.socialHistoryVM?.socialHistory ?? '';
+        setSocialHistory(newFormData.socialHistory);
+        //Family history
+        const { illnesses, relatives, setFamilyHistory } = useIntakeStore.getState();
+
+        if (Array.isArray(data.familyHistoryVM)) {
+          const formattedFamilyHistory = illnesses.map((illness) => {
+            // find matching illness object from backend data
+            const match = data.familyHistoryVM.find(item => item.illness === illness);
+            const row = {};
+
+            relatives.forEach(relative => {
+              row[relative] = match ? match[relative] || false : false;
+            });
+
+            return row;
+          });
+
+          setFamilyHistory(formattedFamilyHistory);
+        }
+        //hospitalization
 
         if (data.hospitalizationHistoryVM?.hospitalizationHistory) {
           newFormData.hospitalization = data.hospitalizationHistoryVM.hospitalizationHistory.split(",");
           setPastItems(newFormData.hospitalization.map((r) => ({ label: r, value: r })));
         }
-        //social history
-        newFormData.socialHistory = data.socialHistoryVM?.socialHistory ?? '';
-        setSocialHistory(newFormData.socialHistory);
         //alcohal smoking 
         if (data.alcoholSmokingtVM) {
           newFormData.alcoholConsumption = [data.alcoholSmokingtVM.alcohol ?? ''];
@@ -1101,12 +1143,13 @@ const IntakeModal = ({ show, close, taskId }) => {
           setAlcohol(data.alcoholSmokingtVM.alcohol ?? 0);
           setSmoking(data.alcoholSmokingtVM.smoking ?? 0);
         }
-
+        //pragnancy
         newFormData.pregency = data.pregencyVM?.pregency ?? '';
-        //legal matter
+        //legal issue
         if (data.legalmatterVM?.legalmatter) {
           setLegalMatterText(data.legalmatterVM.legalmatter);
         }
+        //legal matter
         newFormData.legal = data.legalVM?.legal ?? '';
         //diseases
         if (data.diseases) {
@@ -1122,7 +1165,7 @@ const IntakeModal = ({ show, close, taskId }) => {
           setMedicalCondition("LD", data.diseases.liverDisease ?? false);
           setMedicalCondition("KD", data.diseases.kidneyDisease ?? false);
         }
-
+        // services
         if (data.service) {
           newFormData.services = [
             { title: "Anxiety", selected: data.service.anxiety ?? false },
@@ -1140,6 +1183,10 @@ const IntakeModal = ({ show, close, taskId }) => {
           setIntakeServices("Psychosis", data.service.psychosis ?? false);
           setIntakeServices("Schizophrenia", data.service.schizophrenia ?? false);
         }
+        //schizophreniaPsychosis
+        newFormData.schizophreniaPsychosisDetected = data.schizophreniaPsychosisDetected?.patientStatus ?? false;
+        //sucide
+        newFormData.suicideAttempt = data.suicideAttempt?.patientStatus ?? false;
 
         //hear about us 
         if (data.hear) {
@@ -1162,11 +1209,10 @@ const IntakeModal = ({ show, close, taskId }) => {
             setOtherAboutUsText(data.hear.otherAboutUs);
           }
         }
-
-
-        newFormData.schizophreniaPsychosisDetected = data.schizophreniaPsychosisDetected?.patientStatus ?? false;
-        newFormData.suicideAttempt = data.suicideAttempt?.patientStatus ?? false;
+        //consent
         newFormData.consents = data.tempConsents ?? null;
+
+
 
         setFormData(prev => ({
           ...prev,
@@ -1211,12 +1257,6 @@ const IntakeModal = ({ show, close, taskId }) => {
     setIntakeData,
   ]);
 
-
-
-
-
-
-
   const handleHearAboutUsChange = (e) => {
     const { id, checked } = e.target;
     setHearAboutUsAnswers((prev) => ({
@@ -1239,13 +1279,6 @@ const IntakeModal = ({ show, close, taskId }) => {
       [id]: checked,
     }));
   };
-  // const handleAlcoholChange = (e) => {
-  //   setAlcoholValue(Number(e.target.value));
-  // };
-  // const handleSmokingChange = (e) => {
-  //   setSmokingValue(Number(e.target.value));
-  // };
-
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
@@ -1255,26 +1288,88 @@ const IntakeModal = ({ show, close, taskId }) => {
     }));
   };
 
+  const goToNextSlide = () => {
+    const { dependent, maritalStatus, newPatient, gender, showLocalPharmacy, legal } = formData;
 
-  const goToNextSlide = (targetIndex) => {
-    if (targetIndex === currentStep) return;
+    const go = (n) => setCurrentStep(currentStep + n);
 
-    if (targetIndex < 0 || targetIndex >= slideContent.length) {
-      console.warn("Target index is out of bounds:", targetIndex);
-      return;
+    // Step-specific logic
+    if (currentStep === 2) {
+      if (!dependent) return go(2); // skip dependent
+
+      // If dependent is divorced, go directly to step 3
+      const status = maritalStatus?.toLowerCase();
+      return status === "divorced" ? setCurrentStep(3) : go(2);
     }
 
-    setSlideHistory((prev) => [...prev, currentStep]);
-    setDirection('forward');
-    setCurrentStep(targetIndex);
+    if (currentStep === 5 && showLocalPharmacy) return go(newPatient ? 2 : 3);
+    if (currentStep === 6) return go(newPatient ? 1 : 2);
+    if (currentStep === 8) return go(newPatient ? 1 : 3);
+    if (currentStep === 11) return newPatient ? go(1) : gender === "female" ? go(2) : go(5);
+    if (currentStep === 12) return gender === "female" ? go(1) : go(2);
+    if (currentStep === 13) return go(newPatient ? 1 : 3);
+    if (currentStep === 14 && !legal) return go(2);
+    if (currentStep === 21) return;
+
+    setDirection("forward");
+    setCurrentStep(currentStep + 1);
   };
+
+
 
   const goToPreviousSlide = () => {
-    if (currentStep > 0) {
-      setDirection('backward');
-      setCurrentStep(currentStep - 1);
+    const values = formData;
+    const { dependent, newPatient, gender, showLocalPharmacy, legal } = values;
+
+    const back = (n) => setCurrentStep(currentStep - n);
+
+    // Step 4 back → Step 3 for divorce, otherwise Step 2
+    if (currentStep === 4 && dependent) {
+      const dependentMaritalStatus = dependent.maritalStatus?.toLowerCase();
+      if (dependentMaritalStatus === "divorced") {
+        // Go back to Step 3 (divorce screen)
+        setShowParentSection(false);
+        setShowDependentSection(true);
+        return setCurrentStep(3);
+      } else {
+        // Normal case: back to Step 2
+        setShowParentSection(true);
+        setShowDependentSection(false);
+        return setCurrentStep(2);
+      }
     }
+
+    // Step 3 back → Step 2 (divorced flow)
+    if (currentStep === 3) {
+      setShowParentSection(true);
+      setShowDependentSection(false);
+      return setCurrentStep(2);
+    }
+
+    // Other step-specific back logic
+    if (currentStep === 7 && showLocalPharmacy) return back(2);
+    if (currentStep === 8 && showLocalPharmacy && !newPatient) return back(3);
+    if (currentStep === 8 && !newPatient) return back(2);
+    if (currentStep === 8 && newPatient) return back(1);
+    if (currentStep === 11 && !newPatient) return back(3);
+    if (currentStep === 12 && newPatient) return back(1);
+    if (currentStep === 13) return !newPatient ? back(2) : back(1);
+    if (currentStep === 14)
+      return newPatient && gender !== "female" ? back(2) : newPatient ? back(1) : null;
+    if (currentStep === 16) {
+      if (!newPatient && gender !== "female") return back(5);
+      if (!newPatient) return back(3);
+      if (!legal) return back(2);
+    }
+
+    // Default: go back 1 step
+    back(1);
   };
+
+
+
+
+
 
   const handleSubmit = (e) => {
 

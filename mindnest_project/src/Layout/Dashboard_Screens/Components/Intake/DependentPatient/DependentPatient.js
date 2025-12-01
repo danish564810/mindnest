@@ -7,7 +7,8 @@ import { intakDependentPatientApi } from "../../../../../Api";
 import CustomSelect from "../../../../../Plugins/Select2/CustomSelect";
 import useIntakeStore from "../../../../../Store/intakeStore";
 
-const DependentPatientForm = ({ goToNextSlide, setErrors, errors }) => {
+const DependentPatientForm = ({ goToNextSlide, setFormData }) => {
+  const [errors, setErrors] = useState({});
   const { dependentPatientForm, setDependentPatientField } = useIntakeStore();
   const [tabKey, setTabKey] = useState("About-you");
 
@@ -100,7 +101,7 @@ const DependentPatientForm = ({ goToNextSlide, setErrors, errors }) => {
 
       if (response.success) {
         setErrors({});
-        goToNextSlide(4);
+        goToNextSlide();
       } else {
         // If backend returns an array of error messages, convert them to field-based errors
         if (Array.isArray(response.errors)) {
@@ -217,8 +218,12 @@ const DependentPatientForm = ({ goToNextSlide, setErrors, errors }) => {
                   options={maritalStatus}
                   layout="dashboard"
                   value={maritalStatus.find((opt) => opt.value === dependentPatientForm.maritalStatus) || null}
-                  onChange={(e) => setDependentPatientField("maritalStatus", e.value)}
+                  onChange={(e) => {
+                    setDependentPatientField("maritalStatus", e.value); // update local store if needed
+                    setFormData(prev => ({ ...prev, maritalStatus: e.value, dependent: true })); // update parent
+                  }}
                 />
+
                 {errors?.maritalStatus && <div className="text-danger">{errors.maritalStatus}</div>}
               </div>
             </div>

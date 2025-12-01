@@ -15,9 +15,16 @@ const ConsentFooter = ({ goToNextSlide }) => {
   };
 
   return (
+    <div className="modal-footer-inner">
     <button type="submit" className="btn-modal btn btn-primary" onClick={handleSubmit}>
       I Agree
     </button>
+    <div className="text-center">
+        <button type="button" className="notApplicable mt-1">
+          Decline
+        </button>
+      </div>
+    </div>
   );
 };
 

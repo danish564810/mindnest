@@ -1,14 +1,29 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useIntakeStore from "../../../../../Store/intakeStore";
-import { uploadDrivingLicenseApi, skipDrivingLicenseApi } from "../../../../../Api";
+import {
+  uploadDrivingLicenseApi,
+  skipDrivingLicenseApi,
+} from "../../../../../Api";
 import drivingFrontSvg from "../../../../../assests/svgs/drivingfront.svg";
 import drivingBackSvg from "../../../../../assests/svgs/drivingback.svg";
+import InstructionModal from "../InstructionModal/InstructionModal"; // Make sure path is correct
 
-const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringFour }) => {
-  const { drivingLicense, setDrivingLicenseImage, resetDrivingLicense } = useIntakeStore();
+const DrivingLicenseSlide = ({
+  goToNextSlide,
+  ringOne,
+  ringTwo,
+  ringThree,
+  ringFour,
+}) => {
+  const { drivingLicense, setDrivingLicenseImage } = useIntakeStore();
   const frontInputRef = useRef(null);
   const backInputRef = useRef(null);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const isBothImagesUploaded = Boolean(
+    drivingLicense.front && drivingLicense.back
+  );
 
   const handleImageChange = (e, side) => {
     const file = e.target.files[0];
@@ -44,7 +59,6 @@ const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringF
     setLoading(false);
 
     if (response.success) {
-      console.log("License uploaded:", response.data);
       goToNextSlide(6);
     } else {
       alert("Upload failed: " + response.message);
@@ -54,14 +68,23 @@ const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringF
   return (
     <>
       <div className="modal-body-inner intake-modal intake-Driving">
+        {/* FRONT IMAGE */}
         <div className="front-image-upload image-uplaod mb-3">
           <div className="image-heading">
             <h5>Front Side</h5>
             <div className="front-image dr-image-container">
-              <img className="fr-image" src={drivingLicense.front || drivingFrontSvg} alt="Front Side" />
+              <img
+                className="fr-image"
+                src={drivingLicense.front || drivingFrontSvg}
+                alt="Front Side"
+              />
               <div className="front-border-image">
-                <div className="ring-1"><img src={ringOne} alt="" /></div>
-                <div className="ring-2"><img src={ringTwo} alt="" /></div>
+                <div className="ring-1">
+                  <img src={ringOne} alt="" />
+                </div>
+                <div className="ring-2">
+                  <img src={ringTwo} alt="" />
+                </div>
               </div>
             </div>
             <div className="file-upload">
@@ -74,21 +97,33 @@ const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringF
                 style={{ display: "none" }}
                 onChange={(e) => handleImageChange(e, "front")}
               />
-              <span className="choose-btn" onClick={() => frontInputRef.current?.click()}>
+              <span
+                className="choose-btn"
+                onClick={() => frontInputRef.current?.click()}
+              >
                 <span className="choose-bt">Choose</span>
               </span>
             </div>
           </div>
         </div>
 
+        {/* BACK IMAGE */}
         <div className="back-image-upload image-uplaod mb-3">
           <div className="image-heading">
             <h5>Back Side</h5>
             <div className="back-image dr-image-container">
-              <img className="fr-image" src={drivingLicense.back || drivingBackSvg} alt="Back Side" />
+              <img
+                className="fr-image"
+                src={drivingLicense.back || drivingBackSvg}
+                alt="Back Side"
+              />
               <div className="back-border-image">
-                <div className="ring-1"><img src={ringThree} alt="" /></div>
-                <div className="ring-2"><img src={ringFour} alt="" /></div>
+                <div className="ring-1">
+                  <img src={ringThree} alt="" />
+                </div>
+                <div className="ring-2">
+                  <img src={ringFour} alt="" />
+                </div>
               </div>
             </div>
             <div className="file-upload">
@@ -101,18 +136,26 @@ const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringF
                 style={{ display: "none" }}
                 onChange={(e) => handleImageChange(e, "back")}
               />
-              <span className="choose-btn" onClick={() => backInputRef.current?.click()}>
+              <span
+                className="choose-btn"
+                onClick={() => backInputRef.current?.click()}
+              >
                 <span className="choose-bt">Choose</span>
               </span>
             </div>
           </div>
         </div>
 
+        {/* HELP LINK */}
         <div className="need-help d-flex align-items-center justify-content-center mt-1">
           <p className="m-0">
             Need help?{" "}
             <span>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#ReadInstructions" className="readInst">
+              <button
+                type="button"
+                className="readInst"
+                onClick={() => setShowInstructions(true)}
+              >
                 <b>Read instructions</b>
               </button>
             </span>
@@ -120,16 +163,47 @@ const DrivingLicenseSlide = ({ goToNextSlide, ringOne, ringTwo, ringThree, ringF
         </div>
       </div>
 
+      {/* FOOTER */}
       <div className="modal-footer-inner text-center">
-        <button type="button" className="btn-modal btn btn-primary" onClick={handleContinue} disabled={loading}>
+        <button
+          type="button"
+          className="btn-modal btn btn-primary"
+          onClick={handleContinue}
+          disabled={!isBothImagesUploaded || loading}
+        >
           {loading ? "Uploading..." : "Continue"}
         </button>
         <div className="text-center">
-          <button type="button" className="notApplicable mt-1" onClick={handleSkip}>
+          <button
+            type="button"
+            className="notApplicable mt-1"
+            onClick={handleSkip}
+          >
             Skip
           </button>
         </div>
       </div>
+
+      {/* CUSTOM BACKDROP TO DIM DRIVING LICENSE UI WHEN INSTRUCTION MODAL IS OPEN */}
+      {showInstructions && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1040,
+          }}
+        />
+      )}
+
+      {/* INSTRUCTION MODAL */}
+      <InstructionModal
+        show={showInstructions}
+        onClose={() => setShowInstructions(false)}
+      />
     </>
   );
 };

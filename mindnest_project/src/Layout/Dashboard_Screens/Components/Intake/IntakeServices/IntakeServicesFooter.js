@@ -4,7 +4,7 @@ import { submitServices } from "../../../../../Api";
 
 const ServicesFooter = ({ goToNextSlide }) => {
   const { intakeServices } = useIntakeStore();
-
+ const isAnySelected = Object.values(intakeServices).some(Boolean);
   const handleSubmit = async () => {
     try {
       await submitServices(intakeServices);
@@ -16,7 +16,7 @@ const ServicesFooter = ({ goToNextSlide }) => {
   };
 
   return (
-    <button type="button" className="btn-modal btn btn-primary" onClick={handleSubmit}>
+    <button type="button" className="btn-modal btn btn-primary" onClick={handleSubmit}  disabled={!isAnySelected}>
       Continue
     </button>
   );

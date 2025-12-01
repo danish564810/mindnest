@@ -513,15 +513,6 @@ if(IsNotApplicable){
 };
 
 
-
-
-
-
-
-
-
-
-
 //intake allergies
 export const intakeAllergyApi = async (allergies, IsNotApplicable) => {
   const token = Cookies.get('authToken');
@@ -553,7 +544,6 @@ export const intakeAllergyApi = async (allergies, IsNotApplicable) => {
 };
 
 
-//social history
 // social history
 export const submitSocialHistory = async ({ socialHistory }) => {
   const token = Cookies.get("authToken");
@@ -575,7 +565,6 @@ export const submitSocialHistory = async ({ socialHistory }) => {
     return { success: false, errors: ["Something went wrong."] }; // ✅ fallback for error
   }
 };
-
 
 
 //Family history
@@ -604,20 +593,28 @@ export const submitFamilyHistory = async (familyHistory) => {
 };
 
 //patient hospitalization
-export const intakeHospitalizationApi = async (hospitalizationArray) => {
+export const intakeHospitalizationApi = async (hospitalizationArray, IsNotApplicable) => {
   const token = Cookies.get("authToken");
   if (!token) throw new Error("Auth token is missing");
+
+  let data = '';
+
+  if (!IsNotApplicable) {
+    data = hospitalizationArray.join(',');
+  } else {
+    data = 'not_applicable';
+  }
 
   try {
     const response = await api.post(
       "/api/Intake/IntakePatientHospitalizationHistory",
-      {},
+      {}, // empty body
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          Patienthospitalization: hospitalizationArray.join(","),
+          Patienthospitalization: data, // <- use the data here
         },
       }
     );
@@ -700,20 +697,49 @@ export const PatientLegalMatterDiscription = async (legalMatterText) => {
 };
 
 //deseases API
-export const submitMedicalConditions = async (conditions) => {
+export const intakePatientDiseases  = async (conditions, isNotApplicable) => {
   const token = Cookies.get("authToken");
   if (!token) throw new Error("Auth token is missing");
 
-  const body = {
-    seizures: conditions.SeizuresDisease,
-    longQTSyndrome: conditions.Lqt,
-    liverDisease: conditions.LD,
-    kidneyDisease: conditions.KD,
+  const titleToFieldMap = {
+    "Epilepsy/Seizures": "seizures",
+    "Long QT Syndrome": "longQTSyndrome",
+    "Liver Disease": "liverDisease",
+    "Kidney Disease": "kidneyDisease",
   };
 
+  const data = {};
+
+  Object.entries(conditions).forEach(([key, selected]) => {
+    let title = "";
+    switch (key) {
+      case "SeizuresDisease":
+        title = "Epilepsy/Seizures";
+        break;
+      case "Lqt":
+        title = "Long QT Syndrome";
+        break;
+      case "LD":
+        title = "Liver Disease";
+        break;
+      case "KD":
+        title = "Kidney Disease";
+        break;
+      default:
+        break;
+    }
+
+    const apiKey = titleToFieldMap[title];
+    if (apiKey) {
+      data[apiKey] = selected;
+    }
+  });
+
+  const queryParam = isNotApplicable ? "?param=not_applicable" : "";
+
   const response = await api.post(
-    "/api/Intake/IntakeDiseases",
-    body,
+    `/api/Intake/IntakeDiseases${queryParam}`,
+    data,
     {
       headers: {
         Authorization: `Bearer ${token}`,

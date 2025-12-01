@@ -22,12 +22,13 @@ const LegalMatterSlideFooter = ({ goToNextSlide, setErrors }) => {
       }
     }
   };
-
+ const isDisabled = legalMatterText.trim().length === 0;
   return (
     <button
       type="button"
       className="btn-modal btn btn-primary"
       onClick={handleSubmit}
+      disabled={isDisabled}
     >
       Continue
     </button>
