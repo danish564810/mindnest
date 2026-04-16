@@ -182,6 +182,7 @@ const Signup = () => {
                 phoneEmail: phoneEmail,
                 password: password,
                 smsNotification: consent,
+                marketingAuthorization:consent,
                 firstName,
                 lastName,
                 dob: formattedDob,
@@ -198,6 +199,7 @@ const Signup = () => {
                     userData.email,
                     userData.password,
                     userData.smsNotification,
+                    userData.marketingAuthorization,
                 );
                 const { token } = response;
                 console.log(token, userData);
@@ -381,6 +383,19 @@ const Signup = () => {
                                     <p>I consent to receive SMS messages regarding my treatment plan, as well as updates regarding Mindnest’s products and services (message and data rates may apply)</p>
                                 </span>
                                 <span className="text-danger field-validation-valid" data-valmsg-for="Input.PatientSignUp.SmsNotification" data-valmsg-replace="true"></span>
+                            </div>
+                            <div className="check-ic">
+                                <span htmlFor="SignUpSmsNotification" className="d-flex align-items-center">
+                                    <div className="check-box-main">
+                                        <input type="checkbox"
+                                            className="form-check-input"
+                                            checked={consent}
+                                            onChange={(e) => setConsent(e.target.checked)}
+                                        />
+                                    </div>
+                                    <p>I accept the One Behavioral HIPPA Marketing Authorization.</p>
+                                </span>
+                                <span className="text-danger field-validation-valid" data-valmsg-for="Input.PatientSignUp.marketingAuthorization" data-valmsg-replace="true"></span>
                             </div>
                             <div className="c-horizontal_content_rule margin_top_150 margin_bottom_150">
                                 <hr className="c-horizontal_content_rule__leftrule" />

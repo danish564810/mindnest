@@ -2,7 +2,7 @@ import React from "react";
 import '../dashboard/dashboard_style/dashboard.css'
 import Sidebar from "../Components/Sidebar/sidebar";
 import Header from "../Components/dashboard_header/header";
-import Home from "../Pages/Home/home";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () =>{
     return(
@@ -11,7 +11,7 @@ const Dashboard = () =>{
         <div className="main">
            <Sidebar/>
          <div className="side-content">
-            <Home/>
+            <Outlet/>
         </div>
         </div>
         

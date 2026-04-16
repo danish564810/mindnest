@@ -53,7 +53,7 @@ const checkUSer = async (emailOrPhone) => {
 
 //registration api
 
-const registrationApi = async (phoneNumber, firstName, lastName, dob, gender, email, password, smsNotification) => {
+const registrationApi = async (phoneNumber, firstName, lastName, dob, gender, email, password, smsNotification,marketingAuthorization,) => {
 
     try {
         const response = await api.post('/api/Account/Register', {
@@ -63,7 +63,8 @@ const registrationApi = async (phoneNumber, firstName, lastName, dob, gender, em
             lastName: lastName,             // User's last name
             dob: dob,                  // User's date of birth (ensure it's formatted correctly, e.g., "YYYY-MM-DD")
             gender: gender,               // User's gender
-            smsNotification: smsNotification,      // Consent for SMS notifications (true if consented)
+            smsNotification: smsNotification, 
+            marketingAuthorization: marketingAuthorization,     // Consent for SMS notifications (true if consented)
             email: email,      // Consent for SMS notifications (true if consented)
         });
         if (response.data.success) {
@@ -646,6 +647,28 @@ export const submitAlcoholSmoking = async ({ alcohol, smoking }) => {
   }
 };
 
+//Pregnancy slide 
+export const intakePregnancyStatusApi = async (isPregnant) => {
+  const token = Cookies.get("authToken");
+  if (!token) throw new Error("Auth token is missing");
+
+  try {
+    const response = await api.post(
+      `/api/Intake/IntakePatienPregency?pregnant=${isPregnant}`,
+      {}, // empty body
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Intake Patient Legal Matter Status
 
 export const PatientLegalMatterStatus = async (isLegalMatter) => {
@@ -883,6 +906,25 @@ export const fetchIntakeTaskView = async () => {
   } catch (error) {
     console.error("API error:", error);
     throw error;
+  }
+};
+// src/utils/debugApi.js
+export const callStepApi = async (apiFunc, payload, stepName) => {
+  try {
+    const res = await apiFunc(payload);
+
+    console.log("🟢 STEP:", stepName);
+    console.log("📦 Full Response:", res?.data);
+
+    const status = res?.data?.data?.registrationIntakeStatus;
+    console.log("🎯 Saved Step Status:", status);
+
+    if (!status) console.error("❌ Step NOT saved in backend");
+
+    return res;
+  } catch (err) {
+    console.error("🔥 API Error at step:", stepName, err);
+    throw err;
   }
 };
 

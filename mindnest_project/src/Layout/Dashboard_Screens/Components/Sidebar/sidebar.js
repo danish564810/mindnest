@@ -15,19 +15,19 @@ const Sidebar = () => {
                     <nav>
                         <ul className="nav-bar p-0">
                             <li className="active list-unstyled d-flex">
-                                <Link className=" d-flex align-items-center send-request">
+                                <Link to="/" className=" d-flex align-items-center send-request">
                                     <img src={home} alt="home"/>
                                     <div className="nav__text"> MyNest</div>
                                 </Link>
                             </li>
                             <li className="list-unstyled d-flex">
-                                <Link className=" d-flex align-items-center send-request">
+                                <Link to="/chat"k className=" d-flex align-items-center send-request">
                                 <img src={chat} alt="chat"/>
                                     <div className="nav__text"> Chat</div>
                                 </Link>
                             </li>
                             <li className="list-unstyled d-flex">
-                                <Link className=" d-flex align-items-center send-request">
+                                <Link to ="/findproviderlist    " className=" d-flex align-items-center send-request">
                                     <img src={provider} alt="provider"/>
                                     <div className="nav__text"> Find a Provider</div>
                                 </Link>
@@ -39,7 +39,7 @@ const Sidebar = () => {
                                 </Link>
                             </li>
                             <li className="list-unstyled d-flex">
-                                <Link className=" d-flex align-items-center send-request">
+                                <Link to="/medicalsummary" className=" d-flex align-items-center send-request">
                                     <img src={medical} alt="medical"/>
                                     <div className="nav__text"> Medical Summary</div>
                                 </Link>

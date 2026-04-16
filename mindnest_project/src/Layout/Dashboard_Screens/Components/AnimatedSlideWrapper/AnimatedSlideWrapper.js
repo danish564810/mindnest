@@ -5,33 +5,49 @@ const variants = {
   enter: (direction) => ({
     x: direction === 'forward' ? '100%' : '-100%',
     opacity: 0,
-    position: 'absolute', // Needed during enter
+    position: 'absolute',
+    width: '100%',
   }),
-  center: { 
-    x: '0%', 
-    opacity: 1, 
-    position: 'static'  // <-- This is the fix: no absolute when centered
+  center: {
+    x: 0,
+    opacity: 1,
+    position: 'relative', // ✅ FIX (important)
+    width: '100%',
   },
   exit: (direction) => ({
     x: direction === 'forward' ? '-100%' : '100%',
     opacity: 0,
-    position: 'absolute',  // Needed during exit
+    position: 'absolute',
+    width: '100%',
   }),
-};;
+};
 
 const AnimatedSlideWrapper = ({ children, currentKey, direction }) => {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        overflow: 'hidden',
+        minHeight: '300px', // ✅ IMPORTANT (set according to your modal)
+      }}
+    >
+      <AnimatePresence
+        initial={false}
+        custom={direction}
+        mode="wait"
+      >
         <motion.div
           key={currentKey}
+          custom={direction}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          custom={direction}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          style={{ width: '100%' }}
+          transition={{
+            duration: 0.4,
+            ease: 'easeInOut',
+          }}
         >
           {children}
         </motion.div>

@@ -50,11 +50,11 @@
 .table-main th:last-child {
   border-top-right-radius: 15px;
 }
-.table-main tr {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-}
 .table-main tr:last-child {
   border-bottom: 0 !important;
+}
+.table-main tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 .table-main tbody td {
   padding: 17px 30px !important;

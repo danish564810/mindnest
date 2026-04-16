@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../../../useAuth/useAuth";
 import { useLoading } from "../../../../context/LoadingContext";
 import Cookies from "js-cookie";
@@ -22,6 +22,9 @@ const Login = () => {
   const [error, setError] = useState('');
   const [showPasswordField, setShowPasswordField] = useState(false);
   const [userChecked, setUserChecked] = useState(false); // Track if the user is checked
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
 
   const handleEmailPhoneChange = (e) => {
     const value = e.target.value;
@@ -67,7 +70,7 @@ const Login = () => {
       }
       
       else {
-        navigate("/");
+        navigate(from, {replace : true});
         setError(null);
       }
     } catch (err) {

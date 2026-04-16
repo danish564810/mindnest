@@ -35,7 +35,7 @@
   }
 }
 .btn-modal:disabled, .btn-modal[disabled] {
-  background-color: #c1c1c1 !important;
+  background: #c1c1c1 !important;
   cursor: not-allowed;
   opacity: 0.7;
   pointer-events: none;
@@ -436,17 +436,19 @@ p {
   height: 33px;
   border-radius: 8px;
   font-size: 12px;
+}
+@media screen and (max-width: 1290px) {
+  .provider-call .join-call-btn .Join-Call {
+    width: 112px;
+  }
+}
+.provider-call .join-call-btn .Join-Call {
   font-family: "MazzardL-Medium";
   color: #fff;
   border: 0;
   position: relative;
   outline: 0;
   font-family: MazzardL-Medium;
-}
-@media screen and (max-width: 1290px) {
-  .provider-call .join-call-btn .Join-Call {
-    width: 112px;
-  }
 }
 @media screen and (min-width: 1050px) {
   .provider-call .join-call-btn .Join-Call {
@@ -461,16 +463,18 @@ p {
   height: 33px;
   border-radius: 8px;
   font-size: 12px;
-  height: auto;
-  border: 0;
-  background-color: #fff;
-  font-size: 12px;
-  font-family: MazzardL-Medium;
 }
 @media screen and (max-width: 1290px) {
   .provider-call .join-call-btn .cancel-call {
     width: 112px;
   }
+}
+.provider-call .join-call-btn .cancel-call {
+  height: auto;
+  border: 0;
+  background-color: #fff;
+  font-size: 12px;
+  font-family: MazzardL-Medium;
 }
 @media screen and (min-width: 1050px) {
   .provider-call .join-call-btn .cancel-call {
@@ -957,10 +961,6 @@ p {
   box-sizing: border-box;
   border-radius: 20px;
   position: relative;
-  border: 1px solid #9abdb5;
-  display: flex;
-  align-items: center;
-  padding: 0px 24px;
 }
 @media screen and (max-width: 575px) {
   .btn-banch .det-banc {
@@ -972,6 +972,12 @@ p {
   .btn-banch .det-banc {
     border-radius: 15px !important;
   }
+}
+.btn-banch .det-banc {
+  border: 1px solid #9abdb5;
+  display: flex;
+  align-items: center;
+  padding: 0px 24px;
 }
 @media screen and (max-width: 575px) {
   .btn-banch .det-banc {
@@ -1255,7 +1261,7 @@ p {
   border: 2px solid rgba(0, 0, 0, 0.06);
   border-radius: 10px;
 }
-.form-floating .form-control:not(:-moz-placeholder-shown) ~ label {
+.form-floating .form-control:not(:-moz-placeholder) ~ label {
   font-family: "MazzardH-medium";
   color: #9a9a9a;
 }
@@ -1263,7 +1269,7 @@ p {
   font-family: "MazzardH-medium";
   color: #9a9a9a;
 }
-.form-floating .form-control:not(:-moz-placeholder-shown) ~ label:after {
+.form-floating .form-control:not(:-moz-placeholder) ~ label:after {
   inset: 0 !important;
   height: 0 !important;
 }

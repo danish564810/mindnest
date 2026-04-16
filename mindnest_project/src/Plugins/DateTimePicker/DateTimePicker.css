@@ -19,7 +19,7 @@ label {
   opacity: 0;
 }
 
-.date-pick:not(:-moz-placeholder-shown) > label {
+.date-pick:not(:-moz-placeholder) > label {
   transform: translateY(calc(-50% - 75rem)) scale(0.8);
   color: red;
 }
@@ -45,16 +45,18 @@ label {
 .datepicker-account .react-datepicker__input-container input {
   border: 0;
   padding: 19px 24px 17px;
+}
+.datepicker-account .react-datepicker__input-container input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.datepicker-account .react-datepicker__input-container input {
   height: 60px;
   font-size: 20px;
   border-radius: 15px 0 0 15px;
   background: #f7f7f7;
   font-family: "MazzardH-medium";
   cursor: pointer;
-}
-.datepicker-account .react-datepicker__input-container input:focus {
-  outline: none;
-  box-shadow: none;
 }
 .datepicker-account .react-datepicker__input-container input::-moz-placeholder {
   color: #9A9A9A;
@@ -71,6 +73,12 @@ label {
 .datepicker-dashboard .react-datepicker__input-container input {
   border: 0;
   padding: 19px 24px 17px;
+}
+.datepicker-dashboard .react-datepicker__input-container input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.datepicker-dashboard .react-datepicker__input-container input {
   padding: 0.375rem 0.75rem;
   height: 45px;
   font-size: 16px;
@@ -78,10 +86,6 @@ label {
   background: #fff;
   font-family: "MazzardH-medium";
   cursor: pointer;
-}
-.datepicker-dashboard .react-datepicker__input-container input:focus {
-  outline: none;
-  box-shadow: none;
 }
 .datepicker-dashboard .react-datepicker__input-container input::-moz-placeholder {
   visibility: hidden;
